@@ -53,7 +53,7 @@ const AuthForm = () => {
 
     return (
         <section
-            className={clsx("mx-auto w-full max-w-md ", "mt-10 bg-white shadow sm:rounded-lg", "px-4 py-8 sm:px-10")}
+            className={clsx("mx-auto w-11/12 max-w-md ", "mt-10 bg-white shadow sm:rounded-lg", "px-4 py-8 sm:px-10")}
         >
             <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
                 {variant === "REGISTER" ? (
