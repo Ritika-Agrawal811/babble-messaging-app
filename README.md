@@ -1,0 +1,8 @@
+-- Next.js
+-- react icons
+-- react hook form
+-- clsx
+-- prisma
+-- next-auth
+-- bcrypt
+-- tailwind css
