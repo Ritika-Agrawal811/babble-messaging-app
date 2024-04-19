@@ -79,7 +79,7 @@ For a detailed explanation of the models used for this messenger clone, visit [h
 
 ## Generating Prisma Client ⚙️
 
-After our complete schema is completed, we need to generate a prisma client. For this we use the below command :-
+After our complete schema is defined, we need to generate a prisma client. For this we use the below command :-
 
 ```shell
 npx prisma generate
@@ -89,7 +89,7 @@ This commands reads our schema file and generates a prisma client tailored to ou
 
 ## Migrate our models to database 📥
 
-Run the below command to migrates all the models to your database.
+We run the below command to migrates all the models to our database.
 
 ```shell
 npx prisma db push

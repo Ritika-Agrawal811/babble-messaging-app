@@ -81,7 +81,12 @@ const AuthForm = () => {
                 </Button>
             </form>
 
-            <div className='relative text-sm font-medium my-4 text-center z-10 before:absolute before:w-full before:bg-gray-300 before:h-[1.5px] before:top-1/2 before:left-0 before:-z-10'>
+            <div
+                className={clsx(
+                    "my-4 text-center text-sm font-medium",
+                    "relative z-10 before:absolute before:left-0 before:top-1/2 before:-z-10 before:h-[1.5px] before:w-full before:bg-gray-300"
+                )}
+            >
                 <span className='bg-white px-2 text-gray-500'>OR</span>
             </div>
 
@@ -90,9 +95,9 @@ const AuthForm = () => {
                 <AuthSocialButton icon={BsGoogle} onClick={() => socialAction("google")} />
             </div>
 
-            <p className='mt-6 text-sm text-center text-gray-500'>
+            <p className='mt-6 text-center text-sm text-gray-500'>
                 {variant === "LOGIN" ? "New to messenger?" : "Already have an account?"}
-                <a href='#' className='font-semibold text-sky-500 cursor-pointer' onClick={toggleVariant}>
+                <a href='#' className='cursor-pointer font-semibold text-sky-500' onClick={toggleVariant}>
                     {" "}
                     {variant === "LOGIN" ? "Create an account" : "Login"}
                 </a>

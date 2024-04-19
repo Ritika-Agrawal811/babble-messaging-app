@@ -53,7 +53,7 @@ email  String?  @unique
 
 ```prisma
 conversationIds  String[]  @db.ObjectId
-conversations  Conversation[]  @relation(fields: [conversationIds], references: [id])
+conversations      Conversation[]  @relation(fields: [conversationIds], references: [id])
 ```
 
 -   `@relation` : this attribute is used to define the relation between models like we define references in SQL. Here `conversationIds` field is linked to `id` field of model `Conversation`.
@@ -63,7 +63,9 @@ Here **Conversation** is a different model so `conversations` field stores an ar
 #### 5. Relation with Model Messge
 
 ```prisma
-seenMessages  Message[]  @relation("Seen", fields: [seenMessageIds], references: [id])
+seenMessageIds  String[]   @db.ObjectId
+seenMessages    Message[]  @relation("Seen", fields: [seenMessageIds], references: [id])
+messages        Message[]
 ```
 
 When more than one relations are defined with the same model, in this case it is with model **Message**. We need to mention a name for the relation to avoid confusion.
@@ -76,7 +78,6 @@ The name given here is **"Seen"**.
 
 ```prisma
   user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
-
 ```
 
 -   `onDelete: Cascade` : this means that deleting the **User** record will also delete all the related **Account** records.
