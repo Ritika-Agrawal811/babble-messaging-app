@@ -1,4 +1,4 @@
-# Next.js Coding Hacks :sparkles:
+# Next.js Coding Hacks & Best practices :sparkles:
 
 This readme is a collection of coding hacks and best practices for working with Next.js that I learnt while building this project.
 
@@ -6,7 +6,10 @@ This readme is a collection of coding hacks and best practices for working with 
 
 -   [Coding Hacks](#coding-hacks-🔓) :unlock:
     -   [1. Route Groups](#2-private-folder-📁) 🗺️
+    -   [2. Private Folder](#2-private-folder-📁) :file_folder:
 -   [Best Practices](#best-practices-🥇) 🥇
+    -   [1.\<Image> Component](#1-image-component-🖼️) 🖼️
+    -   [2. useCallback Hook](#2-usecallback-hook-⚛️) ⚛️
 
 ## Coding Hacks :unlock:
 
@@ -42,4 +45,18 @@ Always use the `<Image>` component to render images in NextJS.
 
 > Above the fold refers to the part of a web page visible before a user scrolls down.
 
-> Largest Contentful Paint (LCP) is a user experience (UX) metric.It’s the time it takes between the browser starting to load a page and the largest content element (image or text block) on that page appearing on the screen.
+> Largest Contentful Paint (LCP) is a user experience (UX) metric. It’s the time it takes between the browser starting to load a page and the largest content element (image or text block) on that page appearing on the screen.
+
+### 2. useCallback Hook ⚛️
+
+useCallback is a react hook that is used to memoize callback functions.
+
+> Memoization is a technique that is used to cache the results of a function call so that it does not need to be re-evaluated on every render.
+
+In case of useCallback, it returns a memoized function to prevent it from being recreated on every render.
+
+Use this hook to memoize callback functions that:
+
+-   are passed to child components.
+-   are used in other contexts, such as event handlers and timers.
+-   rely on external data or state.

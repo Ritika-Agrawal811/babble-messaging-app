@@ -1,6 +1,6 @@
 # Short guide on clsx :sparkles:
 
-**Clsx** is a simple JavaScript utility for conditionally joining classes together. It makes our lives easier by giving us syntactic sugar to handle complex styles for CSS solutions like CSS modules, or Tailwind CSS. It can be used in a variety of environments, including React, Vue, and plain JavaScript.
+**Clsx** is a simple JavaScript utility for conditionally joining className strings in JSX together. It makes our lives easier by giving us syntactic sugar to handle complex styles for CSS solutions like CSS modules, or Tailwind CSS. It can be used in a variety of environments, including ReactJS, NextJS and Vue.
 
 _It is used to conditionally apply class names based on a boolean value._
 

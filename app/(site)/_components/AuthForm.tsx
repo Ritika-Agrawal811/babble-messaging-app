@@ -15,6 +15,7 @@ type Variant = "LOGIN" | "REGISTER"
 const AuthForm = () => {
     const [variant, setVariant] = useState<Variant>("LOGIN")
     const [isLoading, setIsLoading] = useState(false)
+
     // initializing react hook form & getting its methods
     const {
         register,
@@ -27,11 +28,6 @@ const AuthForm = () => {
             password: "",
         },
     })
-
-    // a function to toggle between 2 variants of auth form : Login and Register
-    const toggleVariant = useCallback(() => {
-        variant === "LOGIN" ? setVariant("REGISTER") : setVariant("LOGIN")
-    }, [variant])
 
     // a function to handle the submit event of auth form
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
@@ -51,29 +47,41 @@ const AuthForm = () => {
         // Next Auth Social Sign In
     }
 
+    // a function to toggle between 2 variants of auth form : Login and Register
+    const toggleVariant = useCallback(() => {
+        variant === "LOGIN" ? setVariant("REGISTER") : setVariant("LOGIN")
+    }, [variant])
+
     return (
         <section
             className={clsx("mx-auto w-11/12 max-w-md ", "mt-10 bg-white shadow sm:rounded-lg", "px-4 py-8 sm:px-10")}
         >
             <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
-                {variant === "REGISTER" ? (
-                    <Input id='name' label='Name' register={register} errors={errors} type='text' />
-                ) : null}
+                {variant === "REGISTER" && (
+                    <Input
+                        id='name'
+                        label='Name'
+                        register={register}
+                        errors={errors}
+                        type='text'
+                        disabled={isLoading}
+                    />
+                )}
 
                 <Input
                     id='email'
                     label='Email address'
+                    type='email'
                     register={register}
                     errors={errors}
-                    type='email'
                     disabled={isLoading}
                 />
                 <Input
                     id='password'
                     label='Password'
+                    type='password'
                     register={register}
                     errors={errors}
-                    type='password'
                     disabled={isLoading}
                 />
                 <Button disabled={isLoading} fullWidth type='submit'>

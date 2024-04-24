@@ -11,14 +11,19 @@ export default function Home() {
                 <figure>
                     <Image
                         alt='logo'
-                        height={200}
-                        width={200}
+                        height={250}
+                        width={250}
                         quality={100}
                         className='mx-auto w-12 sm:w-14'
                         src='/images/logo.png'
                     />
                 </figure>
-                <h2 className='mt-6 text-center text-2xl font-medium tracking-tight text-gray-900 lg:text-3xl'>
+                <h2
+                    className={clsx(
+                        "mt-6 text-center font-medium tracking-tight text-gray-900",
+                        "text-2xl lg:text-3xl"
+                    )}
+                >
                     Sign in to your account
                 </h2>
             </section>

@@ -3,7 +3,7 @@
 import clsx from "clsx"
 
 interface ButtonProps {
-    type?: "submit" | "reset" | "button" | undefined
+    type: "submit" | "reset" | "button"
     fullWidth?: boolean
     children?: React.ReactNode
     onClick?: () => void
@@ -19,9 +19,9 @@ const Button = ({ type, fullWidth, children, onClick, secondary, danger, disable
             type={type}
             disabled={disabled}
             className={clsx(
-                "rounded-md px-4 py-2.5 mt-6 font-semibold",
+                "mt-6 rounded-md px-4 py-2.5 font-semibold",
                 "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
-                disabled && "opacity-50 cursor-default pointer-events-none",
+                disabled && "pointer-events-none cursor-default opacity-50",
                 fullWidth && "w-full",
                 secondary ? "text-gray-900" : "text-white",
                 danger && "bg-rose-500 hover:bg-rose-600 focus-visible:outline-rose-600",
