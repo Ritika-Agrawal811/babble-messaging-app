@@ -3,12 +3,16 @@
 import { useCallback, useState } from "react"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 import { BsGithub, BsGoogle } from "react-icons/bs"
+import { handleRequestError } from "@/app/_libs/handleRequestError"
+import { signIn } from "next-auth/react"
 import clsx from "clsx"
+import axios from "axios"
 
 // components
 import Input from "@/app/_components/inputs/Input"
 import Button from "@/app/_components/Button"
 import AuthSocialButton from "./AuthSocialButton"
+import toast from "react-hot-toast"
 
 type Variant = "LOGIN" | "REGISTER"
 
@@ -22,22 +26,31 @@ const AuthForm = () => {
         handleSubmit,
         formState: { errors },
     } = useForm<FieldValues>({
-        defaultValues: {
-            name: "",
-            email: "",
-            password: "",
-        },
+        defaultValues: { name: "", email: "", password: "" },
     })
 
     // a function to handle the submit event of auth form
-    const onSubmit: SubmitHandler<FieldValues> = (data) => {
-        setIsLoading(true)
-        if (variant === "REGISTER") {
-            // Axios Register
-        }
+    const onSubmitHandler: SubmitHandler<FieldValues> = async (data) => {
+        try {
+            setIsLoading(true)
+            if (variant === "REGISTER") {
+                const response = await axios.post("/api/register", data)
+            }
 
-        if (variant === "LOGIN") {
-            // Next Auth Signin
+            if (variant === "LOGIN") {
+                const response = await signIn("credentials", {
+                    ...data,
+                    redirect: false,
+                })
+
+                if (response?.error) throw new Error("Invalid credentials")
+
+                toast.success("Succesfully logged in!")
+            }
+        } catch (error) {
+            handleRequestError(error)
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -48,7 +61,7 @@ const AuthForm = () => {
     }
 
     // a function to toggle between 2 variants of auth form : Login and Register
-    const toggleVariant = useCallback(() => {
+    const toggleVariantHandler = useCallback(() => {
         variant === "LOGIN" ? setVariant("REGISTER") : setVariant("LOGIN")
     }, [variant])
 
@@ -56,7 +69,7 @@ const AuthForm = () => {
         <section
             className={clsx("mx-auto w-11/12 max-w-md ", "mt-10 bg-white shadow sm:rounded-lg", "px-4 py-8 sm:px-10")}
         >
-            <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
+            <form className='space-y-6' onSubmit={handleSubmit(onSubmitHandler)}>
                 {variant === "REGISTER" && (
                     <Input
                         id='name'
@@ -105,7 +118,7 @@ const AuthForm = () => {
 
             <p className='mt-6 text-center text-sm text-gray-500'>
                 {variant === "LOGIN" ? "New to messenger?" : "Already have an account?"}
-                <a href='#' className='cursor-pointer font-semibold text-sky-500' onClick={toggleVariant}>
+                <a href='#' className='cursor-pointer font-semibold text-sky-500' onClick={toggleVariantHandler}>
                     {" "}
                     {variant === "LOGIN" ? "Create an account" : "Login"}
                 </a>

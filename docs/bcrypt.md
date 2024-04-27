@@ -33,3 +33,25 @@ Bcrypt is designed to be a _slow algorithm_, which is a good thing when it comes
 3. This combined string is then hashed and stored in the database.
 
 This helps protect against _rainbow table attacks_ because attackers can randomly guess users’ passwords, but they can’t guess the _salt_.
+
+## Bcrypt library functions used in this application
+
+### 1. hash()
+
+This function is used to hash a password. It takes in 2 parameters — _password_ string and number of _salt rounds_
+
+**Prototype :**
+
+```js
+function hash(data: string | Buffer, saltOrRounds: string | number): Promise<string>
+```
+
+It returns a _Promise_ which resolves to the hashed string.
+
+**Example :**
+
+```js
+const hashedPassword = await bcrypt.hash(password, 12)
+```
+
+_await_ is used to unwrap the Promise and get the hashed password.

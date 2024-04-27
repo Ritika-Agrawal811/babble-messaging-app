@@ -102,3 +102,34 @@ We run the below command to migrates all the models to our database.
 ```shell
 npx prisma db push
 ```
+
+# Best practice for instantiating Prisma Client :sparkles:
+
+Sometimes while working with prisma in NextJS, we may get a warning like this:
+
+```
+warn(prisma-client) There are already 10 instances of Prisma Client actively running.
+```
+
+This happens because in development mode, `next dev` command clears the cache which in turn creates a new `PrismaClient` instance each time, creating a new connection to the database. [Check the related issue.](https://github.com/prisma/prisma/discussions/4399)
+
+To solve this issue, it is best to create a separate `db.ts` file which instantiates a single `PrismaClient` instance and save it on the `globalThis` object.
+
+```ts
+import { PrismaClient } from "@prisma/client"
+
+declare global {
+    var prisma: PrismaClient | undefined
+}
+
+// creating a new client only if it doesn't already exist on global object
+const client = globalThis.prisma || new PrismaClient()
+
+if (process.env.NODE_ENV !== "production") globalThis.prisma = client
+
+export default client
+```
+
+Here we check whether a _client_ already exists on the global object, if not we call the `PrismaClient` constructor to create a new client.
+
+Lastly we export this client to use it throughout our application.
