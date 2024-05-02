@@ -54,10 +54,20 @@ const AuthForm = () => {
         }
     }
 
-    const socialAction = (action: string) => {
-        setIsLoading(true)
+    // function to handle social login : Github and Google
+    const socialLoginHandler = async (action: string) => {
+        try {
+            setIsLoading(true)
+            const response = await signIn(action, { redirect: false })
 
-        // Next Auth Social Sign In
+            if (response?.error) throw new Error("Invalid credentials")
+
+            toast.success("Succesfully logged in!")
+        } catch (error) {
+            handleRequestError(error)
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     // a function to toggle between 2 variants of auth form : Login and Register
@@ -112,8 +122,8 @@ const AuthForm = () => {
             </div>
 
             <div className='flex gap-2'>
-                <AuthSocialButton icon={BsGithub} onClick={() => socialAction("github")} />
-                <AuthSocialButton icon={BsGoogle} onClick={() => socialAction("google")} />
+                <AuthSocialButton icon={BsGithub} onClick={() => socialLoginHandler("github")} />
+                <AuthSocialButton icon={BsGoogle} onClick={() => socialLoginHandler("google")} />
             </div>
 
             <p className='mt-6 text-center text-sm text-gray-500'>

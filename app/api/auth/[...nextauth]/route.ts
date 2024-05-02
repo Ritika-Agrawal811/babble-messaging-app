@@ -6,7 +6,7 @@ import GoogleProvider from "next-auth/providers/google"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import prisma from "@/app/_libs/prismadb"
 
-export const authOptions: AuthOptions = {
+const handler = NextAuth({
     adapter: PrismaAdapter(prisma),
     providers: [
         GithubProvider({
@@ -17,12 +17,14 @@ export const authOptions: AuthOptions = {
             clientId: process.env.GOOGLE_ID as string,
             clientSecret: process.env.GOOGLE_SECRET as string,
         }),
+
         CredentialsProvider({
             name: "credentials",
             credentials: {
                 email: { label: "email", type: "text" },
                 password: { label: "password", type: "password" },
             },
+
             async authorize(credentials) {
                 if (!credentials?.email || !credentials?.password) {
                     throw new Error("Invalid Credentials")
@@ -57,8 +59,6 @@ export const authOptions: AuthOptions = {
         strategy: "jwt",
     },
     secret: process.env.NEXTAUTH_SECRET,
-}
-
-const handler = NextAuth(authOptions)
+})
 
 export { handler as GET, handler as POST }
