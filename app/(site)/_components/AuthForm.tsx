@@ -1,10 +1,11 @@
 "use client"
 
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 import { BsGithub, BsGoogle } from "react-icons/bs"
 import { handleRequestError } from "@/app/_libs/handleRequestError"
-import { signIn } from "next-auth/react"
+import { signIn, useSession } from "next-auth/react"
+import { useRouter } from "next/navigation"
 import clsx from "clsx"
 import axios from "axios"
 
@@ -19,6 +20,14 @@ type Variant = "LOGIN" | "REGISTER"
 const AuthForm = () => {
     const [variant, setVariant] = useState<Variant>("LOGIN")
     const [isLoading, setIsLoading] = useState(false)
+    const session = useSession()
+    const router = useRouter()
+
+    useEffect(() => {
+        if (session && session?.status === "authenticated") {
+            router.push("/users")
+        }
+    }, [session, router])
 
     // initializing react hook form & getting its methods
     const {
@@ -35,6 +44,8 @@ const AuthForm = () => {
             setIsLoading(true)
             if (variant === "REGISTER") {
                 const response = await axios.post("/api/register", data)
+
+                if (response.status === 200) signIn("credentials", { ...data })
             }
 
             if (variant === "LOGIN") {
@@ -46,6 +57,7 @@ const AuthForm = () => {
                 if (response?.error) throw new Error("Invalid credentials")
 
                 toast.success("Succesfully logged in!")
+                router.push("/users")
             }
         } catch (error) {
             handleRequestError(error)

@@ -27,3 +27,6 @@ export async function POST(request: Request) {
         return new NextResponse("Internal Error", { status: 500 })
     }
 }
+
+// Post endpoint to register a new user to mongodb
+// bcrpt hashes the entered password and prisma stores the user details to the database
