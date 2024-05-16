@@ -1,11 +1,17 @@
 "use client"
 
+import clsx from "clsx"
 import { signOut } from "next-auth/react"
+
+// components
+import EmptyState from "../_components/EmptyState"
 
 export default function Users() {
     return (
-        <div>
-            <button onClick={() => signOut()}>Logout</button>
-        </div>
+        <main className='h-full'>
+            <section className={clsx("hidden lg:block", "h-full pl-80")}>
+                <EmptyState />
+            </section>
+        </main>
     )
 }
