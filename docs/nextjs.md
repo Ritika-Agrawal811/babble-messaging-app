@@ -49,14 +49,23 @@ Always use the `<Image>` component to render images in NextJS.
 
 ### 2. useCallback Hook ⚛️
 
-useCallback is a react hook that is used to memoize callback functions.
+useCallback is a react hook that is used to memoize **callback functions** that only changes if one of the dependencies has changed.
 
-> Memoization is a technique that is used to cache the results of a function call so that it does not need to be re-evaluated on every render.
+> A callback function is a function that is passed to another function as an argument.
 
-In case of useCallback, it returns a memoized function to prevent it from being recreated on every render.
+In case of useCallback, it returns a memoized function to prevent it from being recreated on every render thus it helps in optimizing an application's performance.
 
 Use this hook to memoize callback functions that:
 
 -   are passed to child components.
 -   are used in other contexts, such as event handlers and timers.
 -   rely on external data or state.
+-   when they are called from useEffect hook and are thus a dependency for it.
+
+:link: [Read about memoization]()
+
+### 3. useMemo Hook ⚛️
+
+useMemo is a react hook that is used to memoize a **value**. Just like useCallback, it also takes in _2 arguments_ — a function and an array of dependencies.
+
+Here the function _must_ return a value which is then memoized by useMemo() hook.
