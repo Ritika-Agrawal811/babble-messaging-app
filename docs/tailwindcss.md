@@ -7,7 +7,8 @@ This readme is a collection of tailwindcss tricks and tips that I learnt while b
 -   [Tricks](#tricks-🪄) 🪄
     -   [1. Add hover effects on child when parent is hovered](#1-add-hover-effects-on-child-when-parent-is-hovered)
     -   [2. Screen reader only elements](#2-screen-reader-only-elements)
--   [Tips](#best-practices-🥇) 🥇
+-   [Tips](#tips-✨) ✨
+    -   [1. Add space between elements]()
 
 ## Tricks 🪄
 
@@ -58,4 +59,56 @@ I've used this _sr-only_ class to the label in \<SidebarItem> component. Each si
         <span className='sr-only'>{label}</span>
     </Link>
 </li>
+```
+
+## Tips ✨
+
+### 1. Add space between elements
+
+Suppose there is a \<ul> list of items. Without any styles, each \<li> tag containing the list item is rendered one after the other in a column.
+
+```html
+<ul>
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+</ul>
+```
+
+To increase the space between these list items, we can either add margin to each \<li> tag or use flexbox on the \<ul> tag and use `gap` utility to increase the space between them.
+
+**Add margin to \<li> tags :**
+
+```html
+<ul>
+    <li class="mt-2">Item 1</li>
+    <li class="mt-2">Item 2</li>
+    <li class="mt-2">Item 3</li>
+</ul>
+```
+
+This feels cluttered as we have to repeat the same `mt-` classes on each \<li> tag.
+
+**Use flex and gap on \<ul> tag :**
+
+```html
+<ul class="flex flex-col gap-4">
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+</ul>
+```
+
+This is redundant because all \<li> tags naturally render in a column. Using flexbox to again do the same thing just to add a `gap` is repeatitive.
+
+TailwindCSS provides a work around this problem. We can use `space-x-` or `space-y-` utilities to add space between children _horizontally_ or _vertically_ respectively.
+
+These utilities are used on the _parent element_ and actually add margin to all but the first child element.
+
+```html
+<ul class="space-y-4">
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+</ul>
 ```
