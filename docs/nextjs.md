@@ -7,6 +7,7 @@ This readme is a collection of coding hacks and best practices for working with 
 -   [Coding Hacks](#coding-hacks-🔓) :unlock:
     -   [1. Route Groups](#2-private-folder-📁) 🗺️
     -   [2. Private Folder](#2-private-folder-📁) :file_folder:
+    -   [3. getServerSession vs getSession vs useSession](#3-getserversession-vs-getsession-vs-usesession-🕒)🕒
 -   [Best Practices](#best-practices-🥇) 🥇
     -   [1.\<Image> Component](#1-image-component-🖼️) 🖼️
     -   [2. useCallback Hook](#2-usecallback-hook-⚛️) ⚛️
@@ -32,6 +33,28 @@ We can also add separate `layout.tsx` files for these folders even though their 
 We can indicate private folders by prefixing them with an **underscore**: `_foldername`.
 
 -   **\_components :** I've renamed my components folders to `_components` to indicate it as a folder used to separate UI logic from routing. Hence it and its subfolders should not be used in routing.
+
+Other folders like **\_hooks**, **\_libs**, **\_context** are also named as private folders to exclude them and their sub folders from routing.
+
+### 3. getServerSession vs getSession vs useSession 🕒
+
+**useSession :** It is a hook provided by the `next-auth` library. It is used to fetch the current user's session details. It also provides helper functions for setting active session.
+
+-   Works only when `<SessionProvider>` is added to layout file.
+
+-   Since it is a hook, it can only be used on **client components** and follows the _Rules for Hooks_ that is they can only be defined at topmost level of functional components.
+
+-   It returns the session object whether or not the user is logged in that is whether or not the cookies are present.
+
+**getSession :** It is a helper function that should be used only on **client side** to get the current active session.
+
+-   As it is a helper function, it doesn't follow hooks' rules and can be used inside other function to get session object. It returns _null_ if no session exists.
+
+**getServerSession :** It is also a helper function to get current session object just like _getSession_
+
+-   It is recommended to use on the **server side** i.e. in route handlers, api routes, server components etc
+
+-   It returns the session object only when user has logged in and returns _null_ otherwise.
 
 ## Best Practices 🥇
 
