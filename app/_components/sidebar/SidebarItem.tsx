@@ -21,10 +21,9 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ label, href, icon: Icon, acti
             <Link
                 href={href}
                 className={clsx(
-                    "flex items-center gap-x-2",
+                    "flex items-center",
                     "p-4",
                     "font-semibold text-gray-500 transition-colors duration-100 hover:text-sky-500",
-                    "text-2xl",
                     active &&
                         "relative bg-gray-50 text-sky-500 before:absolute before:left-0 before:h-full before:w-1 before:bg-sky-500"
                 )}
