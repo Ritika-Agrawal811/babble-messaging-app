@@ -7,7 +7,7 @@ import { IconType } from "react-icons"
 // components
 import Tooltip from "@/app/_components/Tooltip"
 
-interface SidebarItemProps {
+interface DesktopSidebarItemProps {
     label: string
     href: string
     icon: IconType
@@ -15,7 +15,7 @@ interface SidebarItemProps {
     onClick?: () => void
 }
 
-const SidebarItem: React.FC<SidebarItemProps> = ({ label, href, icon: Icon, active, onClick }) => {
+const DesktopSidebarItem: React.FC<DesktopSidebarItemProps> = ({ label, href, icon: Icon, active, onClick }) => {
     return (
         <li onClick={onClick && onClick} className='group relative'>
             <Link
@@ -37,4 +37,4 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ label, href, icon: Icon, acti
     )
 }
 
-export default SidebarItem
+export default DesktopSidebarItem

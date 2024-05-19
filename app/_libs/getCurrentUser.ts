@@ -1,6 +1,7 @@
 import prisma from "./prismadb"
 import getSession from "./getSession"
 
+// function to fetch the current user details from database using prisma
 export default async function getCurrentUser() {
     try {
         const session = await getSession()
