@@ -10,7 +10,7 @@ const Sidebar = () => {
     const [isOpen, setIsOpen] = useState(false)
 
     return (
-        <aside className={clsx("h-full", "hidden lg:block")}>
+        <aside className={clsx("h-full", "hidden md:block", "col-span-2 lg:col-span-1")}>
             <nav className={clsx("flex flex-col justify-between", "h-full w-fit border-r-2 border-gray-100")}>
                 <ul className={clsx("space-y-2")}>
                     {routes.map((item) => {
