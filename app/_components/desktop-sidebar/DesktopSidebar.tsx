@@ -24,8 +24,8 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ currentUser }) => {
                     return <DesktopSidebarItem key={item.label} {...item} />
                 })}
             </ul>
-            <div onClick={() => setIsOpen(true)}>
-                <Avatar user={currentUser} />
+            <div onClick={() => setIsOpen(true)} className='my-4'>
+                <Avatar image={currentUser.image} />
             </div>
         </nav>
     )

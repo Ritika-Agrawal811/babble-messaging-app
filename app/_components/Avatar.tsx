@@ -1,22 +1,21 @@
 "use client"
 
 import clsx from "clsx"
-import { User } from "@prisma/client"
 
 // components
 import Image from "next/image"
 
 interface AvatarProps {
-    user: User
+    image: string | null
 }
 
-const Avatar: React.FC<AvatarProps> = ({ user }) => {
+const Avatar: React.FC<AvatarProps> = ({ image }) => {
     return (
-        <div className={clsx("my-4 cursor-pointer transition hover:opacity-75", "flex justify-center")}>
+        <div className={clsx("cursor-pointer transition hover:opacity-75", "flex justify-center")}>
             <div className={clsx("relative rounded-full", "h-9 w-9")}>
                 <Image
                     alt='avatar'
-                    src={user?.image || "/images/user-placeholder.webp"}
+                    src={image || "/images/user-placeholder.webp"}
                     width={300}
                     height={300}
                     className='rounded-full object-cover'
