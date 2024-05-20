@@ -1,5 +1,5 @@
 "use client"
-// clsx helps to handle dynamic classes
+
 import clsx from "clsx"
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form"
 

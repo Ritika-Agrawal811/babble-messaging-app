@@ -1,4 +1,3 @@
-import clsx from "clsx"
 import getUsers from "@/app/_libs/getUsers"
 
 // components
