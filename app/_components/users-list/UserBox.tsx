@@ -34,11 +34,11 @@ const UserBox: React.FC<UserBoxProps> = ({ user }) => {
             onClick={openConversationWindow}
             className={clsx(
                 "px-3 py-4",
-                "flex gap-2",
+                "flex gap-3",
                 "cursor-pointer transition-colors duration-75 hover:bg-neutral-50"
             )}
         >
-            <Avatar image={user.image} />
+            <Avatar image={user.image} size='big' />
             <div className='flex flex-1 items-center'>
                 <h4 className='font-semibold text-gray-900'>{user.name}</h4>
             </div>

@@ -11,8 +11,8 @@ export default async function DesktopView({ children }: { children: React.ReactN
     const users = await getUsers()
 
     return (
-        <div className={clsx("h-full", "grid grid-cols-5 lg:grid-cols-4")}>
-            <aside className={clsx("h-full", "hidden md:flex", "col-span-2 lg:col-span-1")}>
+        <div className={clsx("h-screen", "grid grid-cols-5 lg:grid-cols-4")}>
+            <aside className={clsx("h-screen", "hidden md:flex", "col-span-2 lg:col-span-1")}>
                 <DesktopSidebar currentUser={currentUser!} />
                 <UsersList users={users} />
             </aside>

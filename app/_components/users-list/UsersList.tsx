@@ -12,7 +12,7 @@ interface UsersListProps {
 
 const UsersList: React.FC<UsersListProps> = ({ users }) => {
     return (
-        <section className={clsx("grow", "border-r-2 border-gray-100")}>
+        <section className={clsx("flex h-full grow flex-col", "border-r-2 border-gray-100")}>
             <h3
                 className={clsx(
                     "px-4 py-2.5",
@@ -22,7 +22,7 @@ const UsersList: React.FC<UsersListProps> = ({ users }) => {
             >
                 People
             </h3>
-            <div className='flex flex-col'>
+            <div className={clsx("flex flex-col", "grow overflow-y-auto")}>
                 {users.map((user) => (
                     <UserBox key={user.id} user={user} />
                 ))}

@@ -7,12 +7,13 @@ import Image from "next/image"
 
 interface AvatarProps {
     image: string | null
+    size: "small" | "big"
 }
 
-const Avatar: React.FC<AvatarProps> = ({ image }) => {
+const Avatar: React.FC<AvatarProps> = ({ image, size }) => {
     return (
         <div className={clsx("cursor-pointer transition hover:opacity-75", "flex justify-center")}>
-            <div className={clsx("relative rounded-full", "h-9 w-9")}>
+            <div className={clsx("relative rounded-full", sizes[size])}>
                 <Image
                     alt='avatar'
                     src={image || "/images/user-placeholder.webp"}
@@ -33,3 +34,8 @@ const Avatar: React.FC<AvatarProps> = ({ image }) => {
 }
 
 export default Avatar
+
+const sizes = {
+    small: "h-9 w-9",
+    big: "h-10 w-10",
+}

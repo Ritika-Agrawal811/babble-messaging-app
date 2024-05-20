@@ -25,7 +25,7 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ currentUser }) => {
                 })}
             </ul>
             <div onClick={() => setIsOpen(true)} className='my-4'>
-                <Avatar image={currentUser.image} />
+                <Avatar image={currentUser.image} size='small' />
             </div>
         </nav>
     )
