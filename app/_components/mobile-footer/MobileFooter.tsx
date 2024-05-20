@@ -16,7 +16,7 @@ const MobileFooter = () => {
     }
 
     return (
-        <footer className={clsx("md:hidden", "fixed bottom-0", "w-full border-t-2 border-gray-100")}>
+        <footer className={clsx("md:hidden", "fixed bottom-0", "w-full border-t-2 border-gray-100 bg-white")}>
             <ul className={clsx("flex")}>
                 {routes.map((item) => {
                     return <MobileFooterItem key={item.label} {...item} />
