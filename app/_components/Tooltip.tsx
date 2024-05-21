@@ -9,7 +9,7 @@ const Tooltip: React.FC<TooltipProps> = ({ label, position }) => {
     return (
         <span
             className={clsx(
-                "absolute whitespace-nowrap rounded-md bg-white text-gray-500 shadow",
+                "absolute z-50 whitespace-nowrap rounded-md bg-white text-gray-500 shadow",
                 "px-2.5 py-1.5",
                 "text-sm",
                 "hidden group-hover:block",
