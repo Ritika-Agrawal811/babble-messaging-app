@@ -18,7 +18,7 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ currentUser }) => {
     const [isOpen, setIsOpen] = useState(false)
 
     return (
-        <nav className={clsx("flex flex-col justify-between", "h-full w-fit border-r-2 border-gray-100")}>
+        <aside className={clsx("hidden flex-col justify-between md:flex", "h-full w-fit border-r-2 border-gray-100")}>
             <ul className={clsx("space-y-2")}>
                 {routes.map((item) => {
                     return <DesktopSidebarItem key={item.label} {...item} />
@@ -27,7 +27,7 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ currentUser }) => {
             <div onClick={() => setIsOpen(true)} className='my-4'>
                 <Avatar image={currentUser.image} size='small' />
             </div>
-        </nav>
+        </aside>
     )
 }
 

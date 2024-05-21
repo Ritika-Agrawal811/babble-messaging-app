@@ -12,7 +12,14 @@ interface UsersListProps {
 
 const UsersList: React.FC<UsersListProps> = ({ users }) => {
     return (
-        <section className={clsx("flex h-full grow flex-col", "border-r-2 border-gray-100")}>
+        <section
+            className={clsx(
+                "h-full grow",
+                "col-span-full md:col-span-2 lg:col-span-1 ",
+                "flex flex-col",
+                "border-r-2 border-gray-100"
+            )}
+        >
             <h3
                 className={clsx(
                     "px-4 py-2.5",
