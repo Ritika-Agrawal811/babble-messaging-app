@@ -2,7 +2,8 @@
 
 import clsx from "clsx"
 import Link from "next/link"
-import { IconType } from "react-icons"
+
+import type { IconType } from "react-icons"
 
 // components
 import Tooltip from "@/app/_components/Tooltip"

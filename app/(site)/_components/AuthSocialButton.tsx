@@ -1,5 +1,5 @@
 import clsx from "clsx"
-import { IconType } from "react-icons"
+import type { IconType } from "react-icons"
 
 interface AuthSocialButtonProps {
     icon: IconType

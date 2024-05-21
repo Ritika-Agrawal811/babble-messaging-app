@@ -1,9 +1,10 @@
 import clsx from "clsx"
 import axios from "axios"
 import { useState } from "react"
-import { User } from "@prisma/client"
 import { useRouter } from "next/navigation"
 import { handleRequestError } from "@/app/_libs/handleRequestError"
+
+import type { User } from "@prisma/client"
 
 // components
 import Avatar from "@/app/_components/Avatar"

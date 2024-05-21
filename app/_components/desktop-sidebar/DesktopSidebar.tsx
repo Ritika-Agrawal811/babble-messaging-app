@@ -2,8 +2,9 @@
 
 import clsx from "clsx"
 import { useState } from "react"
-import { User } from "@prisma/client"
 import useRoutes from "@/app/_hooks/useRoutes"
+
+import type { User } from "@prisma/client"
 
 // components
 import DesktopSidebarItem from "./DesktopSidebarItem"

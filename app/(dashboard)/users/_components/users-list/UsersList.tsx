@@ -1,7 +1,7 @@
 "use client"
 
 import clsx from "clsx"
-import { User } from "@prisma/client"
+import type { User } from "@prisma/client"
 
 // components
 import UserBox from "./UserBox"

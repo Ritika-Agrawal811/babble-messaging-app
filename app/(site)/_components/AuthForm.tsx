@@ -3,13 +3,15 @@
 import clsx from "clsx"
 import axios from "axios"
 import { useCallback, useEffect, useState } from "react"
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
-import { BsGithub, BsGoogle } from "react-icons/bs"
+import { useForm } from "react-hook-form"
 import { handleRequestError } from "@/app/_libs/handleRequestError"
 import { signIn, useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 
+import type { FieldValues, SubmitHandler } from "react-hook-form"
+
 // components
+import { BsGithub, BsGoogle } from "react-icons/bs"
 import Input from "@/app/_components/inputs/Input"
 import Button from "@/app/_components/Button"
 import AuthSocialButton from "./AuthSocialButton"

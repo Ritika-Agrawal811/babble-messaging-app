@@ -2,8 +2,8 @@
 
 import clsx from "clsx"
 import Link from "next/link"
-import { IconType } from "react-icons"
 
+import type { IconType } from "react-icons"
 interface MobileFooterItemProps {
     label: string
     href: string
