@@ -32,8 +32,8 @@ export async function POST(request: Request) {
                         ],
                     },
                 },
-                // since we are only passing idsin members array,
-                // include helps to populate other details as well
+                // since we are only passing ids in members array,
+                // include helps to populate other details of users as well
                 include: {
                     users: true,
                 },
