@@ -4,6 +4,7 @@ This is a collective list to explain the important terms used in the documents.
 
 -   [Accessibilty](#accessibilty)
 -   [Memoization](#memoization)
+-   [Referential Equality]()
 
 ## Accessibilty
 
@@ -18,3 +19,23 @@ This includes providing alternative texts for images, ensuring content is naviga
 ## Memoization
 
 Memoization is an optimizing technique where information is stored in a cache and retrived from it when the same information is requested again _without_ needing to compute it again.
+
+## Referential Equality
+
+Referential equality is a concept in programming that determines whether two references point to the _same_ location in memory.
+
+Two referrences are _equal_ if they refer to the exact same object or memory address.
+
+In JavaScript, we check referential equality with the **strict equality operator (===)**
+
+```js
+const obj1 = { name: "John" }
+const obj2 = { name: "John" }
+const obj3 = obj1
+
+console.log(obj1 === obj2) // false
+console.log(obj1 === obj3) // true
+```
+
+-   `obj1` and `obj2` are different objects with identical properties
+-   `obj1` and `obj3` reference the same object in memory

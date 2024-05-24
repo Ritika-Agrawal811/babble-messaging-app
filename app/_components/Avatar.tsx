@@ -12,7 +12,7 @@ interface AvatarProps {
 
 const Avatar: React.FC<AvatarProps> = ({ image, size }) => {
     return (
-        <div className={clsx("cursor-pointer transition hover:opacity-75", "flex justify-center")}>
+        <div className={clsx("cursor-pointer transition hover:opacity-75", "flex items-center justify-center")}>
             <div className={clsx("relative rounded-full", sizes[size])}>
                 <Image
                     alt='avatar'

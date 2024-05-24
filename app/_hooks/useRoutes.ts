@@ -39,3 +39,5 @@ const useRoutes = () => {
 }
 
 export default useRoutes
+
+// a hook to manage sidebar routes

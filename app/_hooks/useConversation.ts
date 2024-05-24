@@ -19,3 +19,5 @@ const useConversation = () => {
 }
 
 export default useConversation
+
+// a hook to get currently opened conversation details

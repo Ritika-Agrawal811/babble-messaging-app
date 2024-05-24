@@ -11,6 +11,8 @@ This readme is a collection of coding hacks and best practices for working with 
 -   [Best Practices](#best-practices-🥇) 🥇
     -   [1.\<Image> Component](#1-image-component-🖼️) 🖼️
     -   [2. useCallback Hook](#2-usecallback-hook-⚛️) ⚛️
+    -   [3. useMemo Hook](#3-usememo-hook-️⚛️) ⚛️
+    -   [4. import vs import type](#4-import-vs-import-type-📦) 📦
 
 ## Coding Hacks :unlock:
 
@@ -92,3 +94,52 @@ Use this hook to memoize callback functions that:
 useMemo is a react hook that is used to memoize a **value**. Just like useCallback, it also takes in _2 arguments_ — a function and an array of dependencies.
 
 Here the function _must_ return a value which is then memoized by useMemo() hook.
+
+Use this hook when:
+
+-   when the computation is resource-intensive and time consuming
+-   to maintain [referential equality]() between renders to avoid unnecessary re-renders
+
+useMemo() helps to maintain referential equality by memoizing the result of a computation and ensuring that the **same reference** is returned across renders, as long as the dependencies haven't changed.
+
+This is particularly useful when dealing with _objects_, _arrays_, that are passed as props to child components or used in dependency arrays of hooks like useEffect or useCallback.
+
+Even when the values of an object or array _hasn't changed_, a new object or array created on a re-render will have a different memory address which in turn calls the useEffect hooks again. useMemo() helps to avoid this.
+
+### 4. import vs import type 📦
+
+**import ... from :** The standard `import` statement is used to import both types and values (e.g. functions, classes, variables) from a module. This includes anything that is actually part of the runtime JavaScript code.
+
+```js
+import { FullConversation } from "@/app/_types"
+```
+
+Here, `FullConversation` could be a type, interface, or a value that exists at runtime.
+
+Using _import_ means that TypeScript will not strip out the imports during transpilation to JavaScript, even if it's only a type.
+
+**import type ... from :** The import type statement is used to import only types or interfaces from a module.
+
+```js
+import type { FullConversation } from "@/app/_types";
+```
+
+Here, FullConversation is explicitly imported as a type.
+
+TypeScript removes these imports during the transpilation process because they have no impact on the runtime behavior of the code. This can lead to smaller JavaScript bundles and avoid potential issues with unused imports.
+
+Where to use `import type`?
+
+-   If the thing we're importing doesn't have a value, using a value import will in some cases be interpreted as an error, because most JS tooling doesn't know that Flow exists.
+
+```js
+export type Foo = { prop: number };
+```
+
+Here, Foo should only be imported with `import type { Foo } from ...`, since there is no value named **Foo**, it is just a type
+
+-   If the thing we're importing has a JS value, but all we want is the type
+
+-   Importing only the type can make code more readable, because it is clear from the imports that only the type is used
+
+-   Sometimes importing only the type allows us to avoid dependency cycles in the files. Depending on how code is written, it can sometimes matter what order things are imported in. Since `import type ...` only influences typechecking, and not runtime behavior, we can import a type without actually requiring the imported file to execute, avoiding potential cycles.

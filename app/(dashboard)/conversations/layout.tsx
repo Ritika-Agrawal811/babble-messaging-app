@@ -1,14 +1,14 @@
 import clsx from "clsx"
-import getUsers from "@/app/_libs/getUsers"
+import getConverstions from "@/app/_libs/getConversations"
 
 // components
-import UsersList from "../users/_components/users-list/UsersList"
+import ConversationsList from "./_components/conversations-list/ConversationsList"
 
-export default async function UsersLayout({ children }: { children: React.ReactNode }) {
-    const users = await getUsers()
+export default async function ConversationsLayout({ children }: { children: React.ReactNode }) {
+    const conversations = await getConverstions()
     return (
         <div className={clsx("grow", "grid grid-cols-5")}>
-            <UsersList users={users} />
+            <ConversationsList list={conversations} />
             {children}
         </div>
     )

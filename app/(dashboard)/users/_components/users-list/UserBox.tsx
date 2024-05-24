@@ -17,8 +17,8 @@ const UserBox: React.FC<UserBoxProps> = ({ user }) => {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
 
-    // a function to open the conversation window when the user clicks on a user card
-    const openConversationWindow = async () => {
+    // a function to create a conversation when the user clicks on a user card
+    const createConversationHandler = async () => {
         try {
             setIsLoading(true)
             const response = await axios.post("/api/conversations", { userId: user.id })
@@ -32,7 +32,7 @@ const UserBox: React.FC<UserBoxProps> = ({ user }) => {
     }
     return (
         <article
-            onClick={openConversationWindow}
+            onClick={createConversationHandler}
             className={clsx(
                 "px-3 py-4",
                 "flex gap-3",
