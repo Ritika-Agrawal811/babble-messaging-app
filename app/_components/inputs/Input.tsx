@@ -4,19 +4,36 @@ import clsx from "clsx"
 import type { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form"
 
 interface InputProps {
-    label: string
     id: string
     type?: string
     required?: boolean
     register: UseFormRegister<FieldValues>
     errors: FieldErrors
     disabled?: boolean
+    label: string
+    showLabel?: boolean
+    placeholder?: string
+    className?: string
 }
 
-const Input = ({ label, id, type, required, register, errors, disabled }: InputProps) => {
+const Input = ({
+    label,
+    id,
+    type,
+    required,
+    register,
+    errors,
+    disabled,
+    placeholder,
+    className,
+    showLabel = true,
+}: InputProps) => {
     return (
         <div>
-            <label htmlFor={id} className='block text-sm font-medium leading-6 text-gray-900'>
+            <label
+                htmlFor={id}
+                className={clsx("mb-2 text-sm font-medium leading-6 text-gray-900", showLabel ? "block" : "sr-only")}
+            >
                 {label}
             </label>
             <input
@@ -24,11 +41,15 @@ const Input = ({ label, id, type, required, register, errors, disabled }: InputP
                 type={type}
                 autoComplete={id}
                 disabled={disabled}
+                placeholder={placeholder}
                 {...register(id, { required })}
                 className={clsx(
-                    "form-input mt-2 block w-full rounded-md border-0 py-2 font-medium shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:leading-6",
+                    "form-input block w-full rounded-md border-0 py-2 font-medium shadow-sm placeholder:text-gray-400 sm:leading-6",
+                    "ring-1 ring-inset ring-gray-300",
+                    "focus:ring-2 focus:ring-inset focus:ring-sky-600",
                     errors[id] && "focus:ring-rose-500",
-                    disabled && "pointer-events-none cursor-default opacity-50"
+                    disabled && "pointer-events-none cursor-default opacity-50",
+                    className
                 )}
             />
         </div>
