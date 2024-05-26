@@ -22,7 +22,7 @@ const ConversationsList: React.FC<ConversationsListProps> = ({ list }) => {
     return (
         <section
             className={clsx(
-                "h-full grow",
+                "h-screen grow",
                 "col-span-full md:col-span-2 lg:col-span-1",
                 "flex flex-col",
                 "border-r-2 border-gray-100",
