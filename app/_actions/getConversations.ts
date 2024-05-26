@@ -1,4 +1,4 @@
-import prisma from "./prismadb"
+import prisma from "@/app/_libs/prismadb"
 import getCurrentUser from "./getCurrentUser"
 
 // function to fetch all conversation for logged in user

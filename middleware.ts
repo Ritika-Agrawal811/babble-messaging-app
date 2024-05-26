@@ -7,7 +7,7 @@ export default withAuth({
 })
 
 export const config = {
-    matcher: ["/users/:path*"],
+    matcher: ["/users/:path*", "/conversations/:path"],
 }
 
 // a middleware to protect the users pages - pages we want to protect are mentioned in the config object inside matcher array.

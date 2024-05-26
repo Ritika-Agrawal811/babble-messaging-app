@@ -3,13 +3,13 @@ import { useSession } from "next-auth/react"
 import type { FullConversation } from "../_types"
 import type { User } from "@prisma/client"
 
-const useRecipient = (
-    conversations:
-        | FullConversation
-        | {
-              users: User[]
-          }
-) => {
+type Input =
+    | FullConversation
+    | {
+          users: User[]
+      }
+
+const useRecipient = (conversations: Input) => {
     const { data: session } = useSession()
 
     const currentUserEmail = session?.user?.email

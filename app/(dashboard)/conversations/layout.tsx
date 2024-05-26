@@ -1,5 +1,5 @@
 import clsx from "clsx"
-import getConverstions from "@/app/_libs/getConversations"
+import getConverstions from "@/app/_actions/getConversations"
 
 // components
 import ConversationsList from "./_components/conversations-list/ConversationsList"

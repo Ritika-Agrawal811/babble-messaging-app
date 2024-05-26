@@ -1,4 +1,4 @@
-import prisma from "./prismadb"
+import prisma from "@/app/_libs/prismadb"
 import getSession from "./getSession"
 
 // function to fetch the current user details from database using prisma

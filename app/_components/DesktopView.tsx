@@ -1,5 +1,5 @@
 import clsx from "clsx"
-import getCurrentUser from "@/app/_libs/getCurrentUser"
+import getCurrentUser from "@/app/_actions/getCurrentUser"
 
 // components
 import DesktopSidebar from "@/app/_components/desktop-sidebar/DesktopSidebar"

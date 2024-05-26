@@ -1,5 +1,5 @@
 import clsx from "clsx"
-import getUsers from "@/app/_libs/getUsers"
+import getUsers from "@/app/_actions/getUsers"
 
 // components
 import UsersList from "./_components/users-list/UsersList"

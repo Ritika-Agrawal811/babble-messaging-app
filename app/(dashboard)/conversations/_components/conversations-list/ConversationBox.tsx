@@ -26,9 +26,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({ conversation, selecte
     // get last message for a conversation
     const messages = conversation.messages || []
     const lastMessage = messages[messages.length - 1] || ""
-    const lastMessageContent = lastMessage.image
-        ? "Sent an Image"
-        : lastMessage.body || "Send first message lorem ipsum hjg hji jjj jk gfdr"
+    const lastMessageContent = lastMessage.image ? "Sent an Image" : lastMessage.body || "Send first message"
 
     // check if the user has already seen the message
     const seenArray = lastMessage.seen || []
@@ -44,7 +42,8 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({ conversation, selecte
             className={clsx(
                 "px-3 py-4",
                 "flex gap-3",
-                "cursor-pointer transition-colors duration-75 hover:bg-neutral-50"
+                "cursor-pointer transition-colors duration-75 hover:bg-neutral-50",
+                selected && "bg-neutral-50"
             )}
         >
             <Avatar image={recipient.image} size='big' />

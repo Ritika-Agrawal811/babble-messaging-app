@@ -1,4 +1,4 @@
-import prisma from "./prismadb"
+import prisma from "@/app/_libs/prismadb"
 import getSession from "./getSession"
 
 // function to fetch all users from database except logged in user
