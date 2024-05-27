@@ -67,3 +67,5 @@ export async function POST(request: Request) {
         return new NextResponse("Internal Error", { status: 500 })
     }
 }
+
+// post endpoint to create a new message and update its related conversation

@@ -55,3 +55,21 @@ const hashedPassword = await bcrypt.hash(password, 12)
 ```
 
 _await_ is used to unwrap the Promise and get the hashed password.
+
+### 2. compare()
+
+This function is used to compare a given data against a hashed string. We can use this function to check whether the user has entered the correct password.
+
+```js
+function compare(data: string | Buffer, encrypted: string): Promise<boolean>
+```
+
+It also returns a _Promise_ which resolves to a boolean.
+
+**Example :**
+
+```js
+const isCorrectPassword = await bcrypt.compare(credentials.password, user.hashedPassword)
+```
+
+_await_ is used to unwrap the Promise and get the _boolean_ value. If the password after hashing matches the hashed value stored in database, it return true or false otherwise.
