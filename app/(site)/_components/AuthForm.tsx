@@ -40,7 +40,7 @@ const AuthForm = () => {
         defaultValues: { name: "", email: "", password: "" },
     })
 
-    // a function to handle the submit event of auth form
+    // a function to handle the submit event of auth form : registration and login functionalities
     const onSubmitHandler: SubmitHandler<FieldValues> = async (data) => {
         try {
             setIsLoading(true)
