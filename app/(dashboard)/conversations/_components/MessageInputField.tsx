@@ -70,6 +70,7 @@ const MessageInputField = () => {
                     label='Message'
                     type='text'
                     placeholder='Type a message'
+                    autocomplete='off'
                     register={register}
                     errors={errors}
                     showLabel={false}

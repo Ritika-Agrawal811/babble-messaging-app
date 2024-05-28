@@ -102,6 +102,7 @@ const AuthForm = () => {
                         errors={errors}
                         type='text'
                         disabled={isLoading}
+                        autocomplete='name'
                     />
                 )}
 
@@ -112,6 +113,7 @@ const AuthForm = () => {
                     register={register}
                     errors={errors}
                     disabled={isLoading}
+                    autocomplete='email'
                 />
                 <Input
                     id='password'
@@ -120,6 +122,7 @@ const AuthForm = () => {
                     register={register}
                     errors={errors}
                     disabled={isLoading}
+                    autocomplete={variant === "LOGIN" ? "current-password" : "new-password"}
                 />
                 <Button disabled={isLoading} fullWidth type='submit'>
                     {variant === "LOGIN" ? "Sign in" : "Register"}

@@ -14,6 +14,7 @@ interface InputProps {
     showLabel?: boolean
     placeholder?: string
     className?: string
+    autocomplete: string
 }
 
 const Input = ({
@@ -26,6 +27,7 @@ const Input = ({
     disabled,
     placeholder,
     className,
+    autocomplete,
     showLabel = true,
 }: InputProps) => {
     return (
@@ -39,7 +41,7 @@ const Input = ({
             <input
                 id={id}
                 type={type}
-                autoComplete={id}
+                autoComplete={autocomplete}
                 disabled={disabled}
                 placeholder={placeholder}
                 {...register(id, { required })}
