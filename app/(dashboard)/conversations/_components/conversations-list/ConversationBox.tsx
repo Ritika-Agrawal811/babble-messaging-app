@@ -48,7 +48,6 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({ conversation, selecte
             className={clsx(
                 "px-3 py-4",
                 "flex gap-3",
-                "border-2 border-red-700",
                 "cursor-pointer transition-colors duration-75 hover:bg-neutral-50",
                 selected && "bg-neutral-50"
             )}
