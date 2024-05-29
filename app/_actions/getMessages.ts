@@ -6,7 +6,7 @@ export default async function getMessages(conversationId: string) {
     try {
         const currentUser = await getCurrentUser()
 
-        if (!currentUser || currentUser.email) return []
+        if (!currentUser || !currentUser.email) return []
 
         const messages = await prisma.message.findMany({
             where: {

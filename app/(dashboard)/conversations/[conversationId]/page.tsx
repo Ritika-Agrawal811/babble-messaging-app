@@ -17,10 +17,9 @@ const ConversationId = async ({ params }: { params: IParams }) => {
     return (
         <>
             {conversation ? (
-                <ConversationBlock conversation={conversation} />
+                <ConversationBlock conversation={conversation} messages={messages} />
             ) : (
-                <main className={clsx("hidden md:block", "col-span-3 h-full lg:col-span-4")}>
-                    {" "}
+                <main className={clsx("hidden md:block", "col-span-3 h-full xl:col-span-4")}>
                     <EmptyState />
                 </main>
             )}
