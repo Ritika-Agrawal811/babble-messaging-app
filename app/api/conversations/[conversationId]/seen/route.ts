@@ -60,3 +60,6 @@ export async function POST(request: Request, { params }: { params: IParams }) {
         return new NextResponse("Internal Error", { status: 500 })
     }
 }
+
+// post endpoint to handle seen status for a message
+// the current user is included in the seen array for the last message of a conversation when it is opened by them
