@@ -8,20 +8,25 @@ import type { FullMessage } from "@/app/_types"
 
 // components
 import Image from "next/image"
+import { LuCheck, LuCheckCheck } from "react-icons/lu"
 
 interface MessageBoxProps {
     message: FullMessage
+    isLast: boolean
 }
 
-const MessageBox: React.FC<MessageBoxProps> = ({ message }) => {
+const MessageBox: React.FC<MessageBoxProps> = ({ message, isLast }) => {
     const { data: session } = useSession()
 
     const isOwn = session?.user?.email === message?.sender?.email
+    const hasSeen = (message.seen || []).filter((user) => user.email !== message?.sender?.email).length !== 0
+
+    // use in group chat
     // create a comma separated list of users who have seen the message
-    const seenList = (message.seen || [])
-        .filter((user) => user.email !== message?.sender?.email)
-        .map((user) => user.name)
-        .join(", ")
+    // const seenList = (message.seen || [])
+    //     .filter((user) => user.email == message?.sender?.email)
+    //     .map((user) => user.name)
+    //     .join(", ")
 
     return (
         <div
@@ -47,12 +52,21 @@ const MessageBox: React.FC<MessageBoxProps> = ({ message }) => {
                 </figure>
             )}
 
-            <time
-                className={clsx("mt-1 flex w-full justify-end text-xs", isOwn ? "text-white" : "text-gray-500")}
-                dateTime=''
-            >
-                {format(new Date(message.createdAt), "p")}
-            </time>
+            <div className={clsx("mt-1 flex items-center justify-end gap-1", isOwn ? "text-white" : "text-gray-500")}>
+                <time className='text-xs' dateTime=''>
+                    {format(new Date(message.createdAt), "p")}
+                </time>
+                {isOwn &&
+                    (hasSeen ? (
+                        <span className='ml-1 flex items-center gap-1 text-xs'>
+                            <LuCheckCheck className='text-base' /> Seen
+                        </span>
+                    ) : (
+                        <span className='ml-1'>
+                            <LuCheck />
+                        </span>
+                    ))}
+            </div>
         </div>
     )
 }
