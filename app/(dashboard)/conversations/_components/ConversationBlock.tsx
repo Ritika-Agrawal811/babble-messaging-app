@@ -1,13 +1,13 @@
 import clsx from "clsx"
 
-import type { Conversation, User, Message } from "@prisma/client"
+import type { Conversation, User } from "@prisma/client"
+import type { FullMessage } from "@/app/_types"
 
 // components
-import Header from "./Header"
+import Header from "./header/Header"
 import Body from "./conversation-body/Body"
 import MessageInputField from "./MessageInputField"
 
-import type { FullMessage } from "@/app/_types"
 interface ConversationBlockProps {
     conversation: Conversation & {
         users: User[]

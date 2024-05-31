@@ -7,7 +7,7 @@ import Image from "next/image"
 
 interface AvatarProps {
     image: string | null
-    size: "small" | "big"
+    size: "small" | "big" | "large"
     showStatus?: boolean
 }
 
@@ -41,4 +41,5 @@ export default Avatar
 const sizes = {
     small: "h-9 w-9",
     big: "h-10 w-10",
+    large: "h-20 w-20 xl:h-24 xl:w-24",
 }

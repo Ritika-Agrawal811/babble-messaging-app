@@ -6,3 +6,5 @@
 -- next-auth
 -- bcrypt
 -- tailwind css
+-- next-cloudinary
+-- headlessUI
