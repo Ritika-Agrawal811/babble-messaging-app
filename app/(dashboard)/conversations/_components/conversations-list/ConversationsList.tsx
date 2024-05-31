@@ -45,7 +45,7 @@ const ConversationsList: React.FC<ConversationsListProps> = ({ list }) => {
                     )}
                 />
             </h3>
-            <div className={clsx("flex flex-col", "grow overflow-y-auto")}>
+            <div className={clsx("flex flex-col", "max-h-[calc(100vh-3.25em)] grow overflow-y-auto")}>
                 {list.map((conversation) => (
                     <ConversationBox
                         key={conversation.id}
