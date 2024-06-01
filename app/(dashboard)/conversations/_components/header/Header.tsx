@@ -22,7 +22,7 @@ const Header: React.FC<HeaderProps> = ({ conversation }) => {
     const [drawerOpen, setDrawerOpen] = useState(false)
     const recipient = useRecipient(conversation)
 
-    const statusText = conversation.isGroup ? `${conversation.users.length} memebers` : "Online"
+    const statusText = conversation.isGroup ? `${conversation.users.length} members` : "Online"
 
     return (
         <>
