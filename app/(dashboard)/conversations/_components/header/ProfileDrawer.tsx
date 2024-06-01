@@ -57,11 +57,14 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ conversation, isOpen, onC
             <AnimatePresence>
                 {isOpen && (
                     <motion.div className='relative z-40' initial='initial' animate='animate' exit='initial'>
+                        {/* backdrop */}
                         <motion.div
                             className={clsx("fixed inset-0", "cursor-pointer bg-black bg-opacity-40")}
                             variants={fadeIn}
                             onClick={onClose}
                         ></motion.div>
+
+                        {/* profile drawer */}
                         <motion.div className={clsx("w-screen max-w-md", "fixed inset-y-0 right-0")} variants={slideIn}>
                             <div
                                 onClick={onClose}
