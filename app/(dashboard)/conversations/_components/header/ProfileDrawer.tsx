@@ -12,7 +12,7 @@ import type { Conversation, User } from "@prisma/client"
 // components
 import { IoClose, IoTrash } from "react-icons/io5"
 import Avatar from "@/app/_components/Avatar"
-import Modal from "@/app/_components/Modal"
+import ConfirmModal from "./ConfirmModal"
 
 interface ProfileDrawerProps {
     conversation: Conversation & {
@@ -23,7 +23,7 @@ interface ProfileDrawerProps {
 }
 
 const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ conversation, isOpen, onClose }) => {
-    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false)
     const recipient = useRecipient(conversation)
 
     const title = conversation.name || recipient.name
@@ -43,16 +43,12 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ conversation, isOpen, onC
 
     const openDeleteConfirmPopUp = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation()
-        setIsModalOpen(true)
+        setIsConfirmModalOpen(true)
     }
 
     return (
         <>
-            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                <div className='bg-white p-4'>
-                    <p>yoo</p>
-                </div>
-            </Modal>
+            <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => setIsConfirmModalOpen(false)} />
 
             <AnimatePresence>
                 {isOpen && (
