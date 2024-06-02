@@ -32,7 +32,7 @@ const ConversationsList: React.FC<ConversationsListProps> = ({ list }) => {
             <h3
                 className={clsx(
                     "flex items-center justify-between",
-                    "px-4 py-2.5",
+                    "px-4 py-3",
                     "text-xl font-semibold text-neutral-800",
                     "border-b border-gray-100 shadow-sm shadow-zinc-50"
                 )}
@@ -45,7 +45,7 @@ const ConversationsList: React.FC<ConversationsListProps> = ({ list }) => {
                     )}
                 />
             </h3>
-            <div className={clsx("flex flex-col", "max-h-[calc(100vh-3.25em)] grow overflow-y-auto")}>
+            <div className={clsx("flex flex-col", "max-h-[calc(100vh-3.5em)] grow overflow-y-auto")}>
                 {list.map((conversation) => (
                     <ConversationBox
                         key={conversation.id}

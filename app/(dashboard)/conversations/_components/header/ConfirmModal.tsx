@@ -23,21 +23,22 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({ isOpen, onClose }) => {
     const router = useRouter()
     const { conversationId } = useConversation()
 
-    const deleteConversationHandler = async () => {
+    const deleteConversationHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation()
         try {
             setIsLoading(true)
 
             const response = await axios.delete(`/api/conversations/${conversationId}`)
 
-            if (response.status === 200) {
-                onClose()
-                toast.success("Your conversation is deleted successfully!")
-                router.push("/conversations")
-            }
+            if (response.status !== 200) throw new Error("Failed to delete conversation")
+
+            toast.success("Your conversation is deleted successfully!")
+            router.push("/conversations")
         } catch (error) {
             handleRequestError(error)
         } finally {
             setIsLoading(false)
+            onClose()
         }
     }
 
@@ -58,7 +59,12 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({ isOpen, onClose }) => {
                     <Button type='button' variant='secondary' onClick={onClose}>
                         Cancel
                     </Button>
-                    <Button type='button' variant='danger' disabled={isLoading} onClick={deleteConversationHandler}>
+                    <Button
+                        type='button'
+                        variant='danger'
+                        disabled={isLoading}
+                        onClick={(e) => deleteConversationHandler(e)}
+                    >
                         Delete
                     </Button>
                 </div>

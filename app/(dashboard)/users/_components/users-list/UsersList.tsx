@@ -22,7 +22,7 @@ const UsersList: React.FC<UsersListProps> = ({ users }) => {
         >
             <h3
                 className={clsx(
-                    "px-4 py-2.5",
+                    "px-4 py-3",
                     "text-xl font-semibold text-neutral-800",
                     "border-b border-gray-100 shadow-sm shadow-zinc-50"
                 )}
