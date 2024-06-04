@@ -34,7 +34,7 @@ const useRoutes = () => {
             },
             {
                 label: "Settings",
-                href: "/settings/account",
+                href: "/settings",
                 icon: IoSettingsSharp,
                 active: pathname === "/settings",
             },
