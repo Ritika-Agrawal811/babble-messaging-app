@@ -1,8 +1,24 @@
 // Slide animation variants
 
-export const slideIn = {
+export const slideInRight = {
     initial: {
         x: "100%",
+        transition: {
+            duration: 0.3,
+        },
+    },
+    animate: {
+        x: 0,
+        transition: {
+            duration: 0.3,
+            ease: "easeInOut",
+        },
+    },
+}
+
+export const slideInLeft = {
+    initial: {
+        x: "-100%",
         transition: {
             duration: 0.3,
         },

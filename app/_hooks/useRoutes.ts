@@ -6,6 +6,7 @@ import useConversation from "./useConversation"
 // components
 import { HiChat } from "react-icons/hi"
 import { HiArrowLeftOnRectangle, HiUsers } from "react-icons/hi2"
+import { IoSettingsSharp } from "react-icons/io5"
 
 const useRoutes = () => {
     const pathname = usePathname()
@@ -30,6 +31,12 @@ const useRoutes = () => {
                 href: "#",
                 icon: HiArrowLeftOnRectangle,
                 onClick: () => signOut(),
+            },
+            {
+                label: "Settings",
+                href: "/settings/account",
+                icon: IoSettingsSharp,
+                active: pathname === "/settings",
             },
         ],
         [pathname, conversationId]

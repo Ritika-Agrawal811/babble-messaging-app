@@ -18,7 +18,8 @@ const Button = ({ type, fullWidth, children, onClick, variant, disabled }: Butto
             type={type}
             disabled={disabled}
             className={clsx(
-                "mt-6 rounded-md px-4 py-2 text-sm font-semibold md:text-base",
+                "rounded-md px-4 py-2 font-semibold",
+                "whitespace-nowrap text-sm md:text-base",
                 "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
                 "transition duration-100",
                 disabled && "pointer-events-none cursor-default opacity-50",

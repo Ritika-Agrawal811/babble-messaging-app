@@ -9,3 +9,5 @@ export type FullConversation = Conversation & {
     users: User[]
     messages: FullMessage[]
 }
+
+export type SettingOptions = "account" | "chat"

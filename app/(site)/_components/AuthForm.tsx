@@ -124,9 +124,11 @@ const AuthForm = () => {
                     disabled={isLoading}
                     autocomplete={variant === "LOGIN" ? "current-password" : "new-password"}
                 />
-                <Button disabled={isLoading} fullWidth type='submit' variant='primary'>
-                    {variant === "LOGIN" ? "Sign in" : "Register"}
-                </Button>
+                <div className='mt-6'>
+                    <Button disabled={isLoading} fullWidth type='submit' variant='primary'>
+                        {variant === "LOGIN" ? "Sign in" : "Register"}
+                    </Button>
+                </div>
             </form>
 
             <div

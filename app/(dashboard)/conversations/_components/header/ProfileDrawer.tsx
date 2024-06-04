@@ -5,7 +5,7 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { format } from "date-fns"
 import useRecipient from "@/app/_hooks/useRecipient"
-import { slideIn, fadeIn } from "@/app/_variants/variants"
+import { slideInRight, fadeIn } from "@/app/_variants/variants"
 
 import type { Conversation, User } from "@prisma/client"
 
@@ -61,7 +61,10 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ conversation, isOpen, onC
                         ></motion.div>
 
                         {/* profile drawer */}
-                        <motion.div className={clsx("w-screen max-w-md", "fixed inset-y-0 right-0")} variants={slideIn}>
+                        <motion.div
+                            className={clsx("w-screen max-w-sm", "fixed inset-y-0 right-0")}
+                            variants={slideInRight}
+                        >
                             <div
                                 onClick={onClose}
                                 className={clsx(
