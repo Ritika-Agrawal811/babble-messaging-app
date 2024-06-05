@@ -2,7 +2,6 @@
 
 import clsx from "clsx"
 import axios from "axios"
-import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { handleRequestError } from "@/app/_libs/handleRequestError"
 
@@ -19,7 +18,6 @@ interface ProfilePictureProps {
 }
 
 const ProfilePicture: React.FC<ProfilePictureProps> = ({ image }) => {
-    const { data: session } = useSession()
     const router = useRouter()
 
     const uploadProfilePicture = async (result: CloudinaryUploadWidgetResults) => {
@@ -34,6 +32,19 @@ const ProfilePicture: React.FC<ProfilePictureProps> = ({ image }) => {
             if (response.status !== 200) throw new Error("Failed to upload new profile photo")
 
             toast.success("Your profile picture is successfully updated!")
+            router.refresh()
+        } catch (error) {
+            handleRequestError(error)
+        }
+    }
+
+    const removeProfilePicture = async () => {
+        try {
+            const response = await axios.post("/api/settings/remove/profilephoto")
+
+            if (response.status !== 200) throw new Error("Failed to remove profile photo")
+
+            toast.success("Your profile picture is successfully removed!")
             router.refresh()
         } catch (error) {
             handleRequestError(error)
@@ -65,7 +76,7 @@ const ProfilePicture: React.FC<ProfilePictureProps> = ({ image }) => {
                                 Upload New
                             </span>
                         </CldUploadButton>
-                        <Button type='button' variant='secondary'>
+                        <Button type='button' variant='secondary' onClick={removeProfilePicture}>
                             Remove Profile Picture
                         </Button>
                     </div>
