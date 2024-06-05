@@ -34,7 +34,10 @@ const Input = ({
         <div>
             <label
                 htmlFor={id}
-                className={clsx("mb-2 text-sm font-medium leading-6 text-gray-900", showLabel ? "block" : "sr-only")}
+                className={clsx(
+                    "mb-2 text-sm font-medium capitalize leading-6 text-gray-900",
+                    showLabel ? "block" : "sr-only"
+                )}
             >
                 {label}
             </label>

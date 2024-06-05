@@ -7,7 +7,7 @@ export async function POST(request: Request) {
         const currentUser = await getCurrentUser()
         const body = await request.json()
 
-        const { image } = body
+        const { name } = body
 
         if (!currentUser?.id || !currentUser?.email) return new NextResponse("Unauthorized", { status: 401 })
 
@@ -16,16 +16,14 @@ export async function POST(request: Request) {
                 id: currentUser.id,
             },
             data: {
-                image,
+                name,
                 updatedAt: new Date(),
             },
         })
 
         return NextResponse.json(updatedUser)
     } catch (error) {
-        console.log(error, "Failed to update profile photo")
+        console.log(error, "Failed to update basic details")
         return new NextResponse("Internal Error", { status: 500 })
     }
 }
-
-// post endpoint to update profile picture of the user

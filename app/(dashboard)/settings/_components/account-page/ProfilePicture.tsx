@@ -52,8 +52,8 @@ const ProfilePicture: React.FC<ProfilePictureProps> = ({ image }) => {
     }
 
     return (
-        <section className='m-6 lg:m-10'>
-            <div className={clsx("flex gap-6", "flex-col lg:flex-row", "items-start lg:items-center")}>
+        <section>
+            <div className={clsx("flex gap-8", "flex-col lg:flex-row", "items-start lg:items-center")}>
                 <Avatar image={image} size='large' showStatus={false} />
 
                 <div>
