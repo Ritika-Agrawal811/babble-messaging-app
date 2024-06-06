@@ -22,8 +22,8 @@ const SettingsMenu = () => {
         <section
             className={clsx(
                 "h-screen grow",
-                "col-span-full md:col-span-2 lg:col-span-1 ",
-                "flex flex-col",
+                "md:col-span-2 lg:col-span-1 ",
+                "hidden flex-col md:flex",
                 "border-r-2 border-gray-100"
             )}
         >

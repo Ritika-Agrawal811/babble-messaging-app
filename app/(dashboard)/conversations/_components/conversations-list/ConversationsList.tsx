@@ -22,11 +22,10 @@ const ConversationsList: React.FC<ConversationsListProps> = ({ list }) => {
     return (
         <section
             className={clsx(
-                "h-screen grow",
+                "h-screen grow flex-col",
                 "col-span-full md:col-span-2 xl:col-span-1",
-                "flex flex-col",
                 "border-r-2 border-gray-100",
-                isOpen ? "hidden md:block" : "block"
+                isOpen ? "hidden md:flex" : "flex"
             )}
         >
             <h3
@@ -45,7 +44,7 @@ const ConversationsList: React.FC<ConversationsListProps> = ({ list }) => {
                     )}
                 />
             </h3>
-            <div className={clsx("flex flex-col", "max-h-[calc(100vh-3.5em)] grow overflow-y-auto")}>
+            <div className={clsx("flex flex-col", "grow overflow-y-auto")}>
                 {list.map((conversation) => (
                     <ConversationBox
                         key={conversation.id}
