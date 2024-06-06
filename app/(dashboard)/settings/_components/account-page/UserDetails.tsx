@@ -12,6 +12,7 @@ import type { User } from "@prisma/client"
 // components
 import Input from "@/app/_components/inputs/Input"
 import Button from "@/app/_components/Button"
+import Loader from "@/app/_components/Loader"
 import toast from "react-hot-toast"
 
 interface UserDetailsProps {
@@ -65,7 +66,10 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user }) => {
                 />
             </div>
             <Button type='submit' variant='primary' disabled={isLoading}>
-                Save
+                <span className='flex items-center gap-4'>
+                    {isLoading && <Loader />}
+                    Save
+                </span>
             </Button>
         </form>
     )

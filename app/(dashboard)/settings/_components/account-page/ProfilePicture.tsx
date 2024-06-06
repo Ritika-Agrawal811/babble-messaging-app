@@ -1,6 +1,7 @@
 "use client"
 
 import clsx from "clsx"
+import { useState } from "react"
 import axios from "axios"
 import { useRouter } from "next/navigation"
 import { handleRequestError } from "@/app/_libs/handleRequestError"
@@ -10,6 +11,7 @@ import type { CloudinaryUploadWidgetInfo, CloudinaryUploadWidgetResults } from "
 // components
 import Avatar from "@/app/_components/Avatar"
 import Button from "@/app/_components/Button"
+import Loader from "@/app/_components/Loader"
 import { CldUploadButton } from "next-cloudinary"
 import toast from "react-hot-toast"
 
@@ -18,6 +20,7 @@ interface ProfilePictureProps {
 }
 
 const ProfilePicture: React.FC<ProfilePictureProps> = ({ image }) => {
+    const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
 
     const uploadProfilePicture = async (result: CloudinaryUploadWidgetResults) => {
@@ -40,6 +43,8 @@ const ProfilePicture: React.FC<ProfilePictureProps> = ({ image }) => {
 
     const removeProfilePicture = async () => {
         try {
+            setIsLoading(true)
+
             const response = await axios.post("/api/settings/remove/profilephoto")
 
             if (response.status !== 200) throw new Error("Failed to remove profile photo")
@@ -48,6 +53,8 @@ const ProfilePicture: React.FC<ProfilePictureProps> = ({ image }) => {
             router.refresh()
         } catch (error) {
             handleRequestError(error)
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -77,7 +84,10 @@ const ProfilePicture: React.FC<ProfilePictureProps> = ({ image }) => {
                             </span>
                         </CldUploadButton>
                         <Button type='button' variant='secondary' onClick={removeProfilePicture}>
-                            Remove Profile Picture
+                            <span className='flex items-center gap-4'>
+                                {isLoading && <Loader variant='secondary' />}
+                                Remove Profile Picture
+                            </span>
                         </Button>
                     </div>
                 </div>
