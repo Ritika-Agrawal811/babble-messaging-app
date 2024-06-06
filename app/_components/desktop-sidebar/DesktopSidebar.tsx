@@ -18,7 +18,13 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ currentUser }) => {
     const routes = useRoutes()
 
     return (
-        <aside className={clsx("hidden flex-col justify-between md:flex", "h-full w-fit border-r-2 border-gray-100")}>
+        <aside
+            className={clsx(
+                "hidden flex-col justify-between md:flex",
+                "h-full w-fit border-r-2 border-gray-100 bg-white",
+                "relative z-40"
+            )}
+        >
             <ul className={clsx("space-y-2")}>
                 {routes.map((item) => {
                     return <DesktopSidebarItem key={item.label} {...item} />

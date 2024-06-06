@@ -6,23 +6,29 @@ import { useRouter } from "next/navigation"
 import useConversation from "@/app/_hooks/useConversation"
 
 import type { FullConversation } from "@/app/_types"
+import type { User } from "@prisma/client"
 
 // components
 import { MdOutlineGroupAdd } from "react-icons/md"
 import ConversationBox from "./ConversationBox"
+import CreateGroupDrawer from "../group-drawer/CreateGroupDrawer"
 
 interface ConversationsListProps {
     list: FullConversation[]
+    users: User[]
 }
 
-const ConversationsList: React.FC<ConversationsListProps> = ({ list }) => {
+const ConversationsList: React.FC<ConversationsListProps> = ({ list, users }) => {
     const [items, setItems] = useState(list)
-    const router = useRouter()
+    const [createGroup, setCreatGroup] = useState(false)
+
     const { conversationId, isOpen } = useConversation()
+    const router = useRouter()
+
     return (
         <section
             className={clsx(
-                "h-screen grow flex-col",
+                "relative h-screen flex-col",
                 "col-span-full md:col-span-2 xl:col-span-1",
                 "border-r-2 border-gray-100",
                 isOpen ? "hidden md:flex" : "flex"
@@ -42,6 +48,7 @@ const ConversationsList: React.FC<ConversationsListProps> = ({ list }) => {
                         "cursor-pointer text-2xl",
                         "text-gray-500 transition-colors duration-100 hover:text-sky-500"
                     )}
+                    onClick={() => setCreatGroup(true)}
                 />
             </h3>
             <div className={clsx("flex flex-col", "grow overflow-y-auto")}>
@@ -53,6 +60,8 @@ const ConversationsList: React.FC<ConversationsListProps> = ({ list }) => {
                     />
                 ))}
             </div>
+
+            <CreateGroupDrawer isOpen={createGroup} onClose={() => setCreatGroup(false)} users={users} />
         </section>
     )
 }

@@ -34,7 +34,7 @@ const Header: React.FC<HeaderProps> = ({ conversation }) => {
                     </Link>
 
                     <div className='flex cursor-pointer items-center gap-2' onClick={() => setDrawerOpen(true)}>
-                        <Avatar image={recipient.image} size='big' showStatus={false} />
+                        <Avatar image={recipient.image} size='default' showStatus={false} />
                         <div>
                             <h4 className='font-semibold text-gray-900'>{conversation.name || recipient.name}</h4>
                             <p className='text-xs text-gray-500'>{statusText}</p>

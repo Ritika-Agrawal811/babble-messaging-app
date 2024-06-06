@@ -52,7 +52,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({ conversation, selecte
                 selected && "bg-neutral-50"
             )}
         >
-            <Avatar image={recipient.image} size='big' />
+            <Avatar image={recipient.image} size='default' />
             <div className='flex-1 md:max-w-[calc(100%-3em)]'>
                 <header className='flex items-center justify-between'>
                     <h4 className='font-semibold text-gray-900'>{conversation.name || recipient.name}</h4>

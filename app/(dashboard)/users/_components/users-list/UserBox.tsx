@@ -39,7 +39,7 @@ const UserBox: React.FC<UserBoxProps> = ({ user }) => {
                 "cursor-pointer transition-colors duration-75 hover:bg-neutral-50"
             )}
         >
-            <Avatar image={user.image} size='big' />
+            <Avatar image={user.image} size='default' />
             <div className='flex flex-1 items-center'>
                 <h4 className='font-semibold text-gray-900'>{user.name}</h4>
             </div>

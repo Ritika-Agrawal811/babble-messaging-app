@@ -14,9 +14,8 @@ const UsersList: React.FC<UsersListProps> = ({ users }) => {
     return (
         <section
             className={clsx(
-                "h-screen grow",
-                "col-span-full md:col-span-2 lg:col-span-1 ",
-                "flex flex-col",
+                "flex h-screen flex-col",
+                "col-span-full md:col-span-2 lg:col-span-1",
                 "border-r-2 border-gray-100"
             )}
         >
