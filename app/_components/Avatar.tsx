@@ -9,18 +9,21 @@ interface AvatarProps {
     image: string | null
     size: keyof typeof sizes
     showStatus?: boolean
+    isGroup?: boolean
 }
 
-const Avatar: React.FC<AvatarProps> = ({ image, size, showStatus = true }) => {
+const Avatar: React.FC<AvatarProps> = ({ image, size, showStatus = true, isGroup = false }) => {
+    const imageURL = isGroup ? "/images/group-placeholder.jpg" : image || "/images/user-placeholder.webp"
+
     return (
         <div className={clsx("cursor-pointer transition hover:opacity-75", "flex items-center justify-center")}>
             <div className={clsx("relative rounded-full", sizes[size])}>
                 <Image
                     alt='avatar'
-                    src={image || "/images/user-placeholder.webp"}
+                    src={imageURL}
                     width={300}
                     height={300}
-                    className='rounded-full object-cover'
+                    className='h-full rounded-full object-cover'
                 />
                 {showStatus && (
                     <span

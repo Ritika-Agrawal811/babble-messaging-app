@@ -28,15 +28,14 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({ conversation, selecte
     const lastMessage = messages[messages.length - 1] || ""
     const lastMessageContent = lastMessage.image ? "Sent an Image" : lastMessage.body
 
-    // check if the user has already seen the message
-    const seenArray = lastMessage.seen || []
-    const hasSeen = seenArray.filter((user) => user.email === currentUserEmail).length !== 0
-
     // calculate new messages count
     const newMessagesCount = messages.reduce((count, message) => {
         const hasSeen = message.seen.some((user) => user.email === currentUserEmail)
         return hasSeen ? count : count + 1
     }, 0)
+
+    // check if the user has already seen the message
+    const hasSeen = newMessagesCount === 0
 
     const openConversationWindow = () => {
         router.push(`/conversations/${conversation.id}`)
@@ -52,7 +51,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({ conversation, selecte
                 selected && "bg-neutral-50"
             )}
         >
-            <Avatar image={recipient.image} size='default' />
+            <Avatar image={recipient.image} size='default' isGroup={!!conversation?.isGroup} />
             <div className='flex-1 md:max-w-[calc(100%-3em)]'>
                 <header className='flex items-center justify-between'>
                     <h4 className='font-semibold text-gray-900'>{conversation.name || recipient.name}</h4>

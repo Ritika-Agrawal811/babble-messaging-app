@@ -28,7 +28,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ conversation, isOpen, onC
 
     const title = conversation.name || recipient.name
     const joinedDate = format(new Date(recipient.createdAt), "PP")
-    const statusText = conversation.isGroup ? `${conversation.users.length} memebers` : "Online"
+    const statusText = conversation.isGroup ? `${conversation.users.length} members` : "Online"
 
     const details = [
         {
@@ -89,7 +89,12 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ conversation, isOpen, onC
 
                                 {/* user Image and name section */}
                                 <section>
-                                    <Avatar image={recipient.image} size='large' showStatus={false} />
+                                    <Avatar
+                                        image={recipient.image}
+                                        size='large'
+                                        showStatus={false}
+                                        isGroup={!!conversation?.isGroup}
+                                    />
                                     <h2 className='mt-2 text-center text-2xl text-gray-900'>{title}</h2>
                                     <p className='mt-1 text-center text-gray-500'>{statusText}</p>
                                 </section>
