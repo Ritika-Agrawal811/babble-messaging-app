@@ -13,9 +13,10 @@ import SelectedUserBox from "./SelectedUserBox"
 interface SelectedUsersListProps {
     selectedUsers: User[]
     setSelectedUsers: React.Dispatch<React.SetStateAction<User[] | null>>
+    onProceedToNext: () => void
 }
 
-const SelectedUsersList: React.FC<SelectedUsersListProps> = ({ selectedUsers, setSelectedUsers }) => {
+const SelectedUsersList: React.FC<SelectedUsersListProps> = ({ selectedUsers, setSelectedUsers, onProceedToNext }) => {
     const unselectUserHandler = (user: User) => {
         setSelectedUsers((prev) => {
             if (!prev) return prev
@@ -37,7 +38,7 @@ const SelectedUsersList: React.FC<SelectedUsersListProps> = ({ selectedUsers, se
 
             {selectedUsers.length > 1 ? (
                 <div className='mb-3 flex justify-end px-4'>
-                    <Button type='button' variant='primary'>
+                    <Button type='button' variant='primary' onClick={onProceedToNext}>
                         <span className='flex gap-1'>
                             Next
                             <GrFormNextLink className='text-2xl' />

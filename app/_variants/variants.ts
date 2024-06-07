@@ -32,6 +32,38 @@ export const slideInLeft = {
     },
 }
 
+export const slideInLeftHalf = {
+    initial: {
+        x: "-100%",
+        transition: {
+            duration: 0.3,
+        },
+    },
+    animate: {
+        x: "-50%",
+        transition: {
+            duration: 0.3,
+            ease: "easeInOut",
+        },
+    },
+}
+
+export const slideOutRightHalf = {
+    initial: {
+        x: "-50%",
+        transition: {
+            duration: 0.3,
+        },
+    },
+    animate: {
+        x: 0,
+        transition: {
+            duration: 0.3,
+            ease: "easeInOut",
+        },
+    },
+}
+
 // fade animation variants
 
 export const fadeIn = {

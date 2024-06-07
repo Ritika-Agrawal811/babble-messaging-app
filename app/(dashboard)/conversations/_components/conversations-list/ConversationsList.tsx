@@ -28,21 +28,20 @@ const ConversationsList: React.FC<ConversationsListProps> = ({ list, users }) =>
     return (
         <section
             className={clsx(
-                "relative h-screen flex-col",
+                "relative h-screen flex-col overflow-hidden",
                 "col-span-full md:col-span-2 xl:col-span-1",
                 "border-r-2 border-gray-100",
                 isOpen ? "hidden md:flex" : "flex"
             )}
         >
-            <h3
+            <nav
                 className={clsx(
                     "flex items-center justify-between",
                     "px-4 py-3",
-                    "text-xl font-semibold text-neutral-800",
                     "border-b border-gray-100 shadow-sm shadow-zinc-50"
                 )}
             >
-                Messages
+                <h3 className='text-xl font-semibold text-neutral-800'>Messages</h3>
                 <MdOutlineGroupAdd
                     className={clsx(
                         "cursor-pointer text-2xl",
@@ -50,7 +49,7 @@ const ConversationsList: React.FC<ConversationsListProps> = ({ list, users }) =>
                     )}
                     onClick={() => setCreatGroup(true)}
                 />
-            </h3>
+            </nav>
             <div className={clsx("flex flex-col", "grow overflow-y-auto")}>
                 {list.map((conversation) => (
                     <ConversationBox
