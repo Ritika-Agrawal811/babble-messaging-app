@@ -20,6 +20,12 @@ const CreateGroupDrawer: React.FC<CreateGroupDrawerProps> = ({ isOpen, onClose, 
     const [selectedUsers, setSelectedUsers] = useState<User[] | null>(null)
     const [proceedToNext, setProceedToNext] = useState(false)
 
+    const closeGroupDrawerHandler = () => {
+        setProceedToNext(false)
+        onClose()
+        setSelectedUsers(null)
+    }
+
     return (
         <AnimatePresence>
             {isOpen && (
@@ -30,7 +36,11 @@ const CreateGroupDrawer: React.FC<CreateGroupDrawerProps> = ({ isOpen, onClose, 
                     animate='animate'
                     exit='initial'
                 >
-                    <CreateGroupForm selectedUsers={selectedUsers} onGoToPrev={() => setProceedToNext(false)} />
+                    <CreateGroupForm
+                        selectedUsers={selectedUsers}
+                        onGoToPrev={() => setProceedToNext(false)}
+                        onClose={closeGroupDrawerHandler}
+                    />
                     <SelectGroupMembers
                         users={usersList}
                         selectedUsers={selectedUsers}
