@@ -7,6 +7,7 @@ import type { FullMessage } from "@/app/_types"
 import Header from "./header/Header"
 import Body from "./conversation-body/Body"
 import MessageInputField from "./MessageInputField"
+import getUsers from "@/app/_actions/getUsers"
 
 interface ConversationBlockProps {
     conversation: Conversation & {
@@ -15,10 +16,11 @@ interface ConversationBlockProps {
     messages: FullMessage[]
 }
 
-const ConversationBlock: React.FC<ConversationBlockProps> = ({ conversation, messages }) => {
+const ConversationBlock: React.FC<ConversationBlockProps> = async ({ conversation, messages }) => {
+    const users = await getUsers()
     return (
         <main className={clsx("col-span-full md:col-span-3 xl:col-span-4", "h-screen", "flex flex-col")}>
-            <Header conversation={conversation} />
+            <Header conversation={conversation} users={users} />
             <Body initialMessages={messages} />
             <MessageInputField />
         </main>

@@ -16,7 +16,9 @@ interface UserBoxProps {
 
 const UserBox: React.FC<UserBoxProps> = ({ user, setSelectedUsers, isSelected }) => {
     // add user to selectedUsers list when it is clicked and remove it when clicked again
-    const selectUserHandler = () => {
+    const selectUserHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation()
+
         if (!isSelected) {
             setSelectedUsers((prev) => (prev ? [...prev, user] : [user]))
             return

@@ -1,6 +1,5 @@
 "use client"
 
-import clsx from "clsx"
 import axios from "axios"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
@@ -12,6 +11,7 @@ import Modal from "@/app/_components/Modal"
 import toast from "react-hot-toast"
 import { FiAlertTriangle } from "react-icons/fi"
 import Button from "@/app/_components/Button"
+import Loader from "@/app/_components/Loader"
 
 interface ConfirmModalProps {
     isOpen: boolean
@@ -65,7 +65,10 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({ isOpen, onClose }) => {
                         disabled={isLoading}
                         onClick={(e) => deleteConversationHandler(e)}
                     >
-                        Delete
+                        <span className='flex items-center gap-4'>
+                            {isLoading && <Loader variant='danger' />}
+                            Delete
+                        </span>
                     </Button>
                 </div>
             </section>

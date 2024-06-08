@@ -13,22 +13,30 @@ import type { Conversation, User } from "@prisma/client"
 import { IoClose, IoTrash } from "react-icons/io5"
 import Avatar from "@/app/_components/Avatar"
 import ConfirmModal from "./ConfirmModal"
+import RecipientDetails from "./RecipientDetails"
+import MembersList from "./MembersList"
+import AddMembersModal from "./AddMembersModal"
 
 interface ProfileDrawerProps {
     conversation: Conversation & {
         users: User[]
     }
+    users: User[]
     isOpen: boolean
     onClose: () => void
 }
 
-const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ conversation, isOpen, onClose }) => {
+const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ conversation, isOpen, onClose, users }) => {
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false)
+    const [isAddMembersModalOpen, setIsAddsMembersModalOpen] = useState(false)
     const recipient = useRecipient(conversation)
 
     const title = conversation.name || recipient.name
     const joinedDate = format(new Date(recipient.createdAt), "PP")
-    const statusText = conversation.isGroup ? `${conversation.users.length} members` : "Online"
+    const statusText = conversation.isGroup ? `Group • ${conversation.users.length} members` : "Online"
+
+    // find non group members from users list
+    const nonGroupMembers = users.filter((item) => !conversation.users.find((member) => member.id === item.id))
 
     const details = [
         {
@@ -46,9 +54,19 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ conversation, isOpen, onC
         setIsConfirmModalOpen(true)
     }
 
+    const openAddMemebersModal = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation()
+        setIsAddsMembersModalOpen(true)
+    }
+
     return (
         <>
             <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => setIsConfirmModalOpen(false)} />
+            <AddMembersModal
+                isOpen={isAddMembersModalOpen}
+                onClose={() => setIsAddsMembersModalOpen(false)}
+                nonGroupMembers={nonGroupMembers}
+            />
 
             <AnimatePresence>
                 {isOpen && (
@@ -102,18 +120,11 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ conversation, isOpen, onC
                                 <hr className='mt-4 border-b border-gray-100' />
 
                                 {/* user details */}
-                                <section className='mx-auto mt-4 w-full xs:w-4/5'>
-                                    {details.map((item, index) => {
-                                        const { title, content } = item
-
-                                        return (
-                                            <div key={index} className='mb-2 flex justify-between'>
-                                                <h3 className='text-gray-800'>{title}</h3>
-                                                <p className='text-sm italic text-sky-500'>{content}</p>
-                                            </div>
-                                        )
-                                    })}
-                                </section>
+                                {!!conversation.isGroup ? (
+                                    <MembersList members={conversation.users} onClick={openAddMemebersModal} />
+                                ) : (
+                                    <RecipientDetails details={details} />
+                                )}
 
                                 <hr className='mt-4 border-b border-gray-100' />
 

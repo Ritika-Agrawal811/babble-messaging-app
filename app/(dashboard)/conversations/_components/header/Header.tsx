@@ -16,9 +16,10 @@ interface HeaderProps {
     conversation: Conversation & {
         users: User[]
     }
+    users: User[]
 }
 
-const Header: React.FC<HeaderProps> = ({ conversation }) => {
+const Header: React.FC<HeaderProps> = ({ conversation, users }) => {
     const [drawerOpen, setDrawerOpen] = useState(false)
     const recipient = useRecipient(conversation)
 
@@ -26,7 +27,12 @@ const Header: React.FC<HeaderProps> = ({ conversation }) => {
 
     return (
         <>
-            <ProfileDrawer conversation={conversation} isOpen={drawerOpen} onClose={() => setDrawerOpen(false)} />
+            <ProfileDrawer
+                conversation={conversation}
+                isOpen={drawerOpen}
+                onClose={() => setDrawerOpen(false)}
+                users={users}
+            />
             <header className={clsx("bg-gray-100 shadow-sm", "px-2 py-3 md:px-4")}>
                 <nav className='flex items-center'>
                     <Link href='/conversations' className='mr-1 md:hidden'>

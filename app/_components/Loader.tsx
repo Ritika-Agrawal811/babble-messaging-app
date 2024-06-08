@@ -33,4 +33,5 @@ export default Loader
 const variants = {
     primary: "text-sky-600 fill-white",
     secondary: "text-gray-200 fill-sky-500",
+    danger: "text-red-700 fill-white",
 }
