@@ -10,13 +10,14 @@ import { slideInRight, fadeIn } from "@/app/_variants/variants"
 import type { Conversation, User } from "@prisma/client"
 
 // components
-import { IoClose, IoTrash } from "react-icons/io5"
+import { IoClose, IoTrash, IoExitOutline } from "react-icons/io5"
 import Avatar from "@/app/_components/Avatar"
-import ConfirmModal from "./individual/ConfirmModal"
+import DeleteChatConfirmModal from "./individual/DeleteChatConfirmModal"
 import RecipientDetails from "./individual/RecipientDetails"
 import MembersList from "./group/MembersList"
 import AddMembersModal from "./group/AddMembersModal"
 import GroupName from "./group/GroupName"
+import ExitGroupConfirmModal from "./group/ExitGroupConfirmModal"
 
 interface ProfileDrawerProps {
     conversation: Conversation & {
@@ -28,8 +29,12 @@ interface ProfileDrawerProps {
 }
 
 const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ conversation, isOpen, onClose, users }) => {
-    const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false)
-    const [isAddMembersModalOpen, setIsAddsMembersModalOpen] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState({
+        deleteChat: false,
+        addMembers: false,
+        exitGroup: false,
+    })
+
     const recipient = useRecipient(conversation)
 
     const title = conversation.name || recipient.name
@@ -50,12 +55,21 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ conversation, isOpen, onC
         },
     ]
 
+    const closeModalHandler = (modalName: keyof typeof isModalOpen) => {
+        setIsModalOpen((prev) => ({ ...prev, [modalName]: false }))
+    }
+
+    const openModalHandler = (modalName: keyof typeof isModalOpen) => {
+        setIsModalOpen((prev) => ({ ...prev, [modalName]: true }))
+    }
+
     return (
         <>
-            <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => setIsConfirmModalOpen(false)} />
+            <DeleteChatConfirmModal isOpen={isModalOpen.deleteChat} onClose={() => closeModalHandler("deleteChat")} />
+            <ExitGroupConfirmModal isOpen={isModalOpen.exitGroup} onClose={() => closeModalHandler("exitGroup")} />
             <AddMembersModal
-                isOpen={isAddMembersModalOpen}
-                onClose={() => setIsAddsMembersModalOpen(false)}
+                isOpen={isModalOpen.addMembers}
+                onClose={() => closeModalHandler("addMembers")}
                 nonGroupMembers={nonGroupMembers}
             />
 
@@ -117,7 +131,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ conversation, isOpen, onC
                                 {!!conversation.isGroup ? (
                                     <MembersList
                                         members={conversation.users}
-                                        onClick={() => setIsAddsMembersModalOpen(true)}
+                                        onClick={() => openModalHandler("addMembers")}
                                     />
                                 ) : (
                                     <RecipientDetails details={details} />
@@ -127,17 +141,30 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ conversation, isOpen, onC
 
                                 {/* delete chat button */}
                                 <button
-                                    onClick={() => setIsConfirmModalOpen(true)}
+                                    onClick={() =>
+                                        !!conversation?.isGroup
+                                            ? openModalHandler("exitGroup")
+                                            : openModalHandler("deleteChat")
+                                    }
                                     className={clsx(
                                         "flex items-center justify-center gap-2",
                                         "mt-auto w-full p-2 shadow-sm",
-                                        "text-lg text-red-600",
+                                        "text-lg font-medium text-red-600",
                                         "rounded-md border-2 border-red-600",
                                         "transition duration-200 ease-in hover:scale-95"
                                     )}
                                 >
-                                    <IoTrash className='text-xl' />
-                                    <span>Delete Chat</span>
+                                    {!!conversation?.isGroup ? (
+                                        <>
+                                            <IoExitOutline className='text-2xl' />
+                                            <span>Exit Group</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <IoTrash className='text-xl' />
+                                            <span>Delete Chat</span>
+                                        </>
+                                    )}
                                 </button>
                             </div>
                         </motion.div>
