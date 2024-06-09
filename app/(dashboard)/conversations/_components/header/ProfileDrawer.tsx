@@ -12,11 +12,11 @@ import type { Conversation, User } from "@prisma/client"
 // components
 import { IoClose, IoTrash } from "react-icons/io5"
 import Avatar from "@/app/_components/Avatar"
-import ConfirmModal from "./ConfirmModal"
-import RecipientDetails from "./RecipientDetails"
-import MembersList from "./MembersList"
-import AddMembersModal from "./AddMembersModal"
-import GroupName from "./GroupName"
+import ConfirmModal from "./individual/ConfirmModal"
+import RecipientDetails from "./individual/RecipientDetails"
+import MembersList from "./group/MembersList"
+import AddMembersModal from "./group/AddMembersModal"
+import GroupName from "./group/GroupName"
 
 interface ProfileDrawerProps {
     conversation: Conversation & {

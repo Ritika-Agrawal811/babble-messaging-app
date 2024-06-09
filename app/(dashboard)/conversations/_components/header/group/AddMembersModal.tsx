@@ -9,7 +9,7 @@ import useConversation from "@/app/_hooks/useConversation"
 
 // components
 import Modal from "@/app/_components/Modal"
-import UserBox from "../group-drawer/UserBox"
+import UserBox from "@/app/(dashboard)/conversations/_components/group-drawer/UserBox"
 import Button from "@/app/_components/Button"
 import toast from "react-hot-toast"
 import Loader from "@/app/_components/Loader"

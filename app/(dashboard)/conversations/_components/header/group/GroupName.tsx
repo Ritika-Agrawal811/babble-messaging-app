@@ -14,8 +14,8 @@ import type { FieldValues, SubmitHandler } from "react-hook-form"
 import { MdModeEdit } from "react-icons/md"
 import { IoCheckmarkSharp } from "react-icons/io5"
 import Input from "@/app/_components/inputs/Input"
-import toast from "react-hot-toast"
 import Loader from "@/app/_components/Loader"
+import toast from "react-hot-toast"
 
 interface GroupNameProps {
     title: string
