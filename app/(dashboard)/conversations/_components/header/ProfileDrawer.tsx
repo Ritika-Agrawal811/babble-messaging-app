@@ -16,6 +16,7 @@ import ConfirmModal from "./ConfirmModal"
 import RecipientDetails from "./RecipientDetails"
 import MembersList from "./MembersList"
 import AddMembersModal from "./AddMembersModal"
+import GroupName from "./GroupName"
 
 interface ProfileDrawerProps {
     conversation: Conversation & {
@@ -49,16 +50,6 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ conversation, isOpen, onC
         },
     ]
 
-    const openDeleteConfirmPopUp = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.stopPropagation()
-        setIsConfirmModalOpen(true)
-    }
-
-    const openAddMemebersModal = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.stopPropagation()
-        setIsAddsMembersModalOpen(true)
-    }
-
     return (
         <>
             <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => setIsConfirmModalOpen(false)} />
@@ -84,10 +75,9 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ conversation, isOpen, onC
                             variants={slideInRight}
                         >
                             <div
-                                onClick={onClose}
                                 className={clsx(
                                     "h-full overflow-y-auto",
-                                    "cursor-pointer bg-white py-4 shadow-xl",
+                                    "bg-white py-4 shadow-xl",
                                     "px-4 sm:px-6",
                                     "flex flex-col"
                                 )}
@@ -113,15 +103,22 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ conversation, isOpen, onC
                                         showStatus={false}
                                         isGroup={!!conversation?.isGroup}
                                     />
-                                    <h2 className='mt-2 text-center text-2xl text-gray-900'>{title}</h2>
+                                    {title && !!conversation?.isGroup ? (
+                                        <GroupName title={title} />
+                                    ) : (
+                                        <h2 className='mt-2 text-center text-2xl text-gray-900'>{title}</h2>
+                                    )}
                                     <p className='mt-1 text-center text-gray-500'>{statusText}</p>
                                 </section>
 
                                 <hr className='mt-4 border-b border-gray-100' />
 
-                                {/* user details */}
+                                {/* user or group details */}
                                 {!!conversation.isGroup ? (
-                                    <MembersList members={conversation.users} onClick={openAddMemebersModal} />
+                                    <MembersList
+                                        members={conversation.users}
+                                        onClick={() => setIsAddsMembersModalOpen(true)}
+                                    />
                                 ) : (
                                     <RecipientDetails details={details} />
                                 )}
@@ -130,7 +127,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ conversation, isOpen, onC
 
                                 {/* delete chat button */}
                                 <button
-                                    onClick={openDeleteConfirmPopUp}
+                                    onClick={() => setIsConfirmModalOpen(true)}
                                     className={clsx(
                                         "flex items-center justify-center gap-2",
                                         "mt-auto w-full p-2 shadow-sm",

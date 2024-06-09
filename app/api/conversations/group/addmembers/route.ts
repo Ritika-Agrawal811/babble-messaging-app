@@ -7,7 +7,7 @@ export async function POST(request: Request) {
 
         const { conversationId, newMembers } = body
 
-        if (!newMembers) new NextResponse("Invalid Data", { status: 400 })
+        if (!newMembers) return new NextResponse("Invalid Data", { status: 400 })
 
         // update group conversation with newMembers
         const updatedConversation = await prisma.conversation.update({
