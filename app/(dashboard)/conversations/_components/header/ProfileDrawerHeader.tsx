@@ -1,5 +1,6 @@
 "use client"
 
+import useRecipient from "@/app/_hooks/useRecipient"
 import type { Conversation, User } from "@prisma/client"
 
 // components
@@ -7,13 +8,14 @@ import Avatar from "@/app/_components/Avatar"
 import GroupName from "./group/GroupName"
 
 interface ProfileDrawerHeaderProps {
-    recipient: User
     conversation: Conversation & {
         users: User[]
     }
 }
 
-const ProfileDrawerHeader: React.FC<ProfileDrawerHeaderProps> = ({ recipient, conversation }) => {
+const ProfileDrawerHeader: React.FC<ProfileDrawerHeaderProps> = ({ conversation }) => {
+    const recipient = useRecipient(conversation)
+
     const title = conversation.name || recipient.name
     const statusText = conversation.isGroup ? `Group • ${conversation.users.length} members` : "Online"
 

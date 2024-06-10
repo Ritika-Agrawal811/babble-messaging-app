@@ -20,20 +20,24 @@ const RecipientDetails: React.FC<RecipientDetailsProps> = ({ recipient }) => {
     ]
 
     return (
-        <section className='mx-auto mt-4 w-full xs:w-4/5'>
-            {details.map((item, index) => {
-                const { title, content } = item
+        <>
+            <section className='mx-4 mt-4'>
+                {details.map((item, index) => {
+                    const { title, content } = item
 
-                return (
-                    content && (
-                        <div key={index} className='mb-2 flex justify-between'>
-                            <h3 className='text-gray-800'>{title}</h3>
-                            <p className='text-sm italic text-sky-500'>{content}</p>
-                        </div>
+                    return (
+                        content && (
+                            <div key={index} className='mb-2 flex justify-between'>
+                                <h3 className='text-gray-800'>{title}</h3>
+                                <p className='text-sm italic text-sky-500'>{content}</p>
+                            </div>
+                        )
                     )
-                )
-            })}
-        </section>
+                })}
+            </section>
+
+            <hr className='mt-4 border-b border-gray-100' />
+        </>
     )
 }
 

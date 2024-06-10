@@ -3,10 +3,10 @@
 import clsx from "clsx"
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import useRecipient from "@/app/_hooks/useRecipient"
 import { slideInRight, fadeIn } from "@/app/_variants/variants"
 
 import type { Conversation, User } from "@prisma/client"
+import type { FullConversation } from "@/app/_types"
 
 // components
 import { IoClose } from "react-icons/io5"
@@ -18,6 +18,7 @@ import ProfileDrawerBody from "./ProfileDrawerBody"
 import ProfileDrawerFooter from "./ProfileDrawerFooter"
 
 interface ProfileDrawerProps {
+    allUserConversations: FullConversation[]
     conversation: Conversation & {
         users: User[]
     }
@@ -26,14 +27,18 @@ interface ProfileDrawerProps {
     onClose: () => void
 }
 
-const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ conversation, isOpen, onClose, users }) => {
+const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
+    conversation,
+    isOpen,
+    onClose,
+    users,
+    allUserConversations,
+}) => {
     const [isModalOpen, setIsModalOpen] = useState({
         deleteChat: false,
         addMembers: false,
         exitGroup: false,
     })
-
-    const recipient = useRecipient(conversation)
 
     // find non group members from users list
     const nonGroupMembers = users.filter((item) => !conversation.users.find((member) => member.id === item.id))
@@ -93,11 +98,11 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ conversation, isOpen, onC
                                 </button>
 
                                 {/* user/group image and name section */}
-                                <ProfileDrawerHeader recipient={recipient} conversation={conversation} />
+                                <ProfileDrawerHeader conversation={conversation} />
 
                                 {/* user or group details */}
                                 <ProfileDrawerBody
-                                    recipient={recipient}
+                                    allUserConversations={allUserConversations}
                                     conversation={conversation}
                                     onClick={() => openModalHandler("addMembers")}
                                 />

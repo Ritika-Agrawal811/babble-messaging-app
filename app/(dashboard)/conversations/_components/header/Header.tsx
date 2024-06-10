@@ -5,6 +5,7 @@ import { useState } from "react"
 import useRecipient from "@/app/_hooks/useRecipient"
 
 import type { Conversation, User } from "@prisma/client"
+import type { FullConversation } from "@/app/_types"
 
 // components
 import { HiChevronLeft, HiEllipsisVertical } from "react-icons/hi2"
@@ -13,13 +14,14 @@ import Avatar from "@/app/_components/Avatar"
 import Link from "next/link"
 
 interface HeaderProps {
+    allUserConversations: FullConversation[]
     conversation: Conversation & {
         users: User[]
     }
     users: User[]
 }
 
-const Header: React.FC<HeaderProps> = ({ conversation, users }) => {
+const Header: React.FC<HeaderProps> = ({ conversation, users, allUserConversations }) => {
     const [drawerOpen, setDrawerOpen] = useState(false)
     const recipient = useRecipient(conversation)
 
@@ -28,6 +30,7 @@ const Header: React.FC<HeaderProps> = ({ conversation, users }) => {
     return (
         <>
             <ProfileDrawer
+                allUserConversations={allUserConversations}
                 conversation={conversation}
                 isOpen={drawerOpen}
                 onClose={() => setDrawerOpen(false)}
