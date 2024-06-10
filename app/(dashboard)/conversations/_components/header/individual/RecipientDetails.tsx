@@ -1,11 +1,24 @@
+import { format } from "date-fns"
+import type { User } from "@prisma/client"
+
 interface RecipientDetailsProps {
-    details: {
-        title: string
-        content: string | null
-    }[]
+    recipient: User
 }
 
-const RecipientDetails: React.FC<RecipientDetailsProps> = ({ details }) => {
+const RecipientDetails: React.FC<RecipientDetailsProps> = ({ recipient }) => {
+    const joinedDate = format(new Date(recipient.createdAt), "PP")
+
+    const details = [
+        {
+            title: "Email",
+            content: recipient.email,
+        },
+        {
+            title: "Joined",
+            content: joinedDate,
+        },
+    ]
+
     return (
         <section className='mx-auto mt-4 w-full xs:w-4/5'>
             {details.map((item, index) => {

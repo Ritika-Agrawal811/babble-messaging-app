@@ -3,21 +3,19 @@
 import clsx from "clsx"
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { format } from "date-fns"
 import useRecipient from "@/app/_hooks/useRecipient"
 import { slideInRight, fadeIn } from "@/app/_variants/variants"
 
 import type { Conversation, User } from "@prisma/client"
 
 // components
-import { IoClose, IoTrash, IoExitOutline } from "react-icons/io5"
-import Avatar from "@/app/_components/Avatar"
+import { IoClose } from "react-icons/io5"
 import DeleteChatConfirmModal from "./individual/DeleteChatConfirmModal"
-import RecipientDetails from "./individual/RecipientDetails"
-import MembersList from "./group/MembersList"
 import AddMembersModal from "./group/AddMembersModal"
-import GroupName from "./group/GroupName"
 import ExitGroupConfirmModal from "./group/ExitGroupConfirmModal"
+import ProfileDrawerHeader from "./ProfileDrawerHeader"
+import ProfileDrawerBody from "./ProfileDrawerBody"
+import ProfileDrawerFooter from "./ProfileDrawerFooter"
 
 interface ProfileDrawerProps {
     conversation: Conversation & {
@@ -37,23 +35,8 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ conversation, isOpen, onC
 
     const recipient = useRecipient(conversation)
 
-    const title = conversation.name || recipient.name
-    const joinedDate = format(new Date(recipient.createdAt), "PP")
-    const statusText = conversation.isGroup ? `Group • ${conversation.users.length} members` : "Online"
-
     // find non group members from users list
     const nonGroupMembers = users.filter((item) => !conversation.users.find((member) => member.id === item.id))
-
-    const details = [
-        {
-            title: "Email",
-            content: recipient.email,
-        },
-        {
-            title: "Joined",
-            content: joinedDate,
-        },
-    ]
 
     const closeModalHandler = (modalName: keyof typeof isModalOpen) => {
         setIsModalOpen((prev) => ({ ...prev, [modalName]: false }))
@@ -109,63 +92,25 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ conversation, isOpen, onC
                                     <IoClose className='text-2xl' />
                                 </button>
 
-                                {/* user Image and name section */}
-                                <section>
-                                    <Avatar
-                                        image={recipient.image}
-                                        size='large'
-                                        showStatus={false}
-                                        isGroup={!!conversation?.isGroup}
-                                    />
-                                    {title && !!conversation?.isGroup ? (
-                                        <GroupName title={title} />
-                                    ) : (
-                                        <h2 className='mt-2 text-center text-2xl text-gray-900'>{title}</h2>
-                                    )}
-                                    <p className='mt-1 text-center text-gray-500'>{statusText}</p>
-                                </section>
-
-                                <hr className='mt-4 border-b border-gray-100' />
+                                {/* user/group image and name section */}
+                                <ProfileDrawerHeader recipient={recipient} conversation={conversation} />
 
                                 {/* user or group details */}
-                                {!!conversation.isGroup ? (
-                                    <MembersList
-                                        members={conversation.users}
-                                        onClick={() => openModalHandler("addMembers")}
-                                    />
-                                ) : (
-                                    <RecipientDetails details={details} />
-                                )}
+                                <ProfileDrawerBody
+                                    recipient={recipient}
+                                    conversation={conversation}
+                                    onClick={() => openModalHandler("addMembers")}
+                                />
 
-                                <hr className='mt-4 border-b border-gray-100' />
-
-                                {/* delete chat button */}
-                                <button
+                                {/* delete chat or exit group button */}
+                                <ProfileDrawerFooter
                                     onClick={() =>
                                         !!conversation?.isGroup
                                             ? openModalHandler("exitGroup")
                                             : openModalHandler("deleteChat")
                                     }
-                                    className={clsx(
-                                        "flex items-center justify-center gap-2",
-                                        "mt-auto w-full p-2 shadow-sm",
-                                        "text-lg font-medium text-red-600",
-                                        "rounded-md border-2 border-red-600",
-                                        "transition duration-200 ease-in hover:scale-95"
-                                    )}
-                                >
-                                    {!!conversation?.isGroup ? (
-                                        <>
-                                            <IoExitOutline className='text-2xl' />
-                                            <span>Exit Group</span>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <IoTrash className='text-xl' />
-                                            <span>Delete Chat</span>
-                                        </>
-                                    )}
-                                </button>
+                                    isGroup={!!conversation?.isGroup}
+                                />
                             </div>
                         </motion.div>
                     </motion.div>
