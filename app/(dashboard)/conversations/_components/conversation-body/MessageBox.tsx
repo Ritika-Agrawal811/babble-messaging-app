@@ -1,6 +1,7 @@
 "use client"
 
 import clsx from "clsx"
+import { useState } from "react"
 import { format } from "date-fns"
 import { useSession } from "next-auth/react"
 
@@ -9,13 +10,14 @@ import type { FullMessage } from "@/app/_types"
 // components
 import Image from "next/image"
 import { LuCheck, LuCheckCheck } from "react-icons/lu"
+import ImageModal from "./ImageModal"
 
 interface MessageBoxProps {
     message: FullMessage
-    isLast: boolean
 }
 
-const MessageBox: React.FC<MessageBoxProps> = ({ message, isLast }) => {
+const MessageBox: React.FC<MessageBoxProps> = ({ message }) => {
+    const [isImageModalOpen, setIsImageModalOpen] = useState(false)
     const { data: session } = useSession()
 
     const isOwn = session?.user?.email === message?.sender?.email
@@ -38,18 +40,26 @@ const MessageBox: React.FC<MessageBoxProps> = ({ message, isLast }) => {
             {message.body && <p className='min-w-20 max-w-[80vw] md:max-w-[35vw]'>{message.body}</p>}
 
             {message.image && (
-                <figure className='overflow-hidden rounded-xl'>
-                    <Image
-                        alt='user sent an image'
-                        src={message.image}
-                        width={300}
-                        height={300}
-                        className={clsx(
-                            "cursor-pointer rounded-xl object-cover",
-                            "transition duration-150 hover:scale-105"
-                        )}
+                <>
+                    <ImageModal
+                        isOpen={isImageModalOpen}
+                        onClose={() => setIsImageModalOpen(false)}
+                        imageURL={message.image}
                     />
-                </figure>
+                    <figure className='overflow-hidden rounded-xl'>
+                        <Image
+                            onClick={() => setIsImageModalOpen(true)}
+                            alt='user sent an image'
+                            src={message.image}
+                            width={300}
+                            height={300}
+                            className={clsx(
+                                "cursor-pointer rounded-xl object-cover",
+                                "transition duration-150 hover:scale-105"
+                            )}
+                        />
+                    </figure>
+                </>
             )}
 
             <div className={clsx("mt-1 flex items-center justify-end gap-1", isOwn ? "text-white" : "text-gray-500")}>

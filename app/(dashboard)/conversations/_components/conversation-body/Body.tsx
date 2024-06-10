@@ -32,7 +32,7 @@ const Body: React.FC<BodyProps> = ({ initialMessages }) => {
         <section className={clsx("grow overflow-y-auto")}>
             <div className='flex flex-col px-2'>
                 {messages.map((message, index) => (
-                    <MessageBox key={message.id} message={message} isLast={index === messages.length - 1} />
+                    <MessageBox key={message.id} message={message} />
                 ))}
             </div>
             <div ref={bottomRef} className='pt-6'></div>
