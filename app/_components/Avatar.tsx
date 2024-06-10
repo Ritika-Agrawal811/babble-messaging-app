@@ -16,7 +16,7 @@ const Avatar: React.FC<AvatarProps> = ({ image, size, showStatus = true, isGroup
     const imageURL = isGroup ? "/images/group-placeholder.jpg" : image || "/images/user-placeholder.webp"
 
     return (
-        <div className={clsx("cursor-pointer transition hover:opacity-75", "flex items-center justify-center")}>
+        <div className='flex items-center justify-center'>
             <div className={clsx("relative rounded-full", sizes[size])}>
                 <Image
                     alt='avatar'
