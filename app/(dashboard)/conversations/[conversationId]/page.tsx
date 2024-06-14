@@ -20,7 +20,7 @@ const ConversationId = async ({ params }: { params: IParams }) => {
                 <ConversationBlock conversation={conversation} messages={messages} />
             ) : (
                 <main className={clsx("hidden md:block", "col-span-3 h-full xl:col-span-4")}>
-                    <EmptyState />
+                    <EmptyState content='Select a chat to continue with the conversation' />
                 </main>
             )}
         </>
