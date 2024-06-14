@@ -58,6 +58,14 @@ Other folders like **\_hooks**, **\_libs**, **\_context** are also named as priv
 
 -   It returns the session object only when user has logged in and returns _null_ otherwise.
 
+### 4. loading.tsx file ⏳
+
+NextJS allows us to add a special **loading.tsx** file which is rendered before the content of a route segment is loaded. In other words, _loading.tsx_ file is used to create loading screens for navigation between routes.
+
+Create this file inside _any_ folder in the _apps_ folder. It will then act as a loading screen for the routes within that folder.
+
+It uses [React Suspence]() to achieve this. Inside the folder, _loading.tsx_ is nested inside `layout.tsx`. It will automatically wrap the `page.tsx` file and any children below in a `<Suspense>` boundary.
+
 ## Best Practices 🥇
 
 ### 1. \<Image> Component 🖼️

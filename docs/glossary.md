@@ -4,7 +4,8 @@ This is a collective list to explain the important terms used in the documents.
 
 -   [Accessibilty](#accessibilty)
 -   [Memoization](#memoization)
--   [Referential Equality]()
+-   [Referential Equality](#referential-equality)
+-   [React Suspence]()
 
 ## Accessibilty
 
@@ -39,3 +40,15 @@ console.log(obj1 === obj3) // true
 
 -   `obj1` and `obj2` are different objects with identical properties
 -   `obj1` and `obj3` reference the same object in memory
+
+## React Suspense
+
+React Suspense is a built-in React component which lets us temporarily render a fallback UI while its children are still loading.
+
+```jsx
+<Suspense fallback={<FallbackUI />}>
+    <MyComponent />
+</Suspense>
+```
+
+Here, until the contents of `<MyComponent>` loads, the `<FallbackUI>` will be shown in its place.
