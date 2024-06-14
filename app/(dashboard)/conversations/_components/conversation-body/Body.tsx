@@ -2,8 +2,10 @@
 
 import clsx from "clsx"
 import axios from "axios"
-import { useRef, useState, useEffect } from "react"
+import { find } from "lodash"
+import { useRef, useState, useEffect, useCallback } from "react"
 import useConversation from "@/app/_hooks/useConversation"
+import { pusherClient } from "@/app/_libs/pusher"
 
 import type { FullMessage } from "@/app/_types"
 
@@ -19,7 +21,7 @@ const Body: React.FC<BodyProps> = ({ initialMessages }) => {
     const { conversationId } = useConversation()
     const bottomRef = useRef<HTMLDivElement>(null)
 
-    useEffect(() => {
+    const seenStatusHandler = useCallback(async () => {
         try {
             // adding user to "seen" array whenever they open the conversation window
             axios.post(`/api/conversations/${conversationId}/seen`)
@@ -28,10 +30,39 @@ const Body: React.FC<BodyProps> = ({ initialMessages }) => {
         }
     }, [conversationId])
 
+    const newMessageHandler = useCallback((message: FullMessage) => {
+        setMessages((current) => {
+            // find if the new message already doesn't exist
+            if (find(current, { id: message.id })) return current
+
+            return [...current, message]
+        })
+    }, [])
+
+    useEffect(() => {
+        // conversationId is used as the channel name for each conversation
+        pusherClient.subscribe(conversationId)
+        pusherClient.bind("messages:new", newMessageHandler)
+
+        bottomRef?.current?.scrollIntoView() // scroll to the bottom of component
+        seenStatusHandler()
+
+        return () => {
+            pusherClient.unsubscribe(conversationId)
+            pusherClient.unbind("messages:new", newMessageHandler)
+        }
+    }, [conversationId, newMessageHandler, seenStatusHandler])
+
+    useEffect(() => {
+        // Scroll to the bottom whenever the new message is added
+        bottomRef.current?.scrollIntoView({ behavior: "smooth" })
+        seenStatusHandler()
+    }, [messages, seenStatusHandler])
+
     return (
         <section className={clsx("grow overflow-y-auto")}>
-            <div className='flex flex-col px-2'>
-                {messages.map((message, index) => (
+            <div className='flex flex-col scroll-smooth px-2'>
+                {messages.map((message) => (
                     <MessageBox key={message.id} message={message} />
                 ))}
             </div>

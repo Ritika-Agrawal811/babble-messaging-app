@@ -7,4 +7,6 @@
 -- bcrypt
 -- tailwind css
 -- next-cloudinary
--- headlessUI
+-- pusher
+-- lodash
+-- date-fns
