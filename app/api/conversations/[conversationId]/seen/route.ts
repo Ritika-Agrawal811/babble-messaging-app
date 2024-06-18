@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import prisma from "@/app/_libs/prismadb"
+import { pusherServer } from "@/app/_libs/pusher"
 import getCurrentUser from "@/app/_actions/getCurrentUser"
 
 interface IParams {
@@ -31,8 +32,13 @@ export async function POST(request: Request, { params }: { params: IParams }) {
         if (!conversation) return new NextResponse("Invalid ID", { status: 400 })
 
         // find the last message from existing conversation
-        // const length = conversation.messages.length
-        // const lastMessage = conversation.messages[length - 1]
+        const length = conversation.messages.length
+        const lastMessage = conversation.messages[length - 1]
+
+        // check if user has already seen the message or perhaps is the sender of this message
+        if (!lastMessage || lastMessage.seenIds.indexOf(currentUser.id) !== -1) {
+            return NextResponse.json(conversation)
+        }
 
         // fetch all messages the user has not seen
         const unSeenMessages = conversation.messages.filter((message) => {
@@ -40,8 +46,6 @@ export async function POST(request: Request, { params }: { params: IParams }) {
 
             return !user
         })
-
-        // if (!lastMessage) return NextResponse.json(conversation)
 
         if (unSeenMessages.length === 0) return NextResponse.json(conversation)
 
@@ -63,24 +67,14 @@ export async function POST(request: Request, { params }: { params: IParams }) {
                     },
                 },
             })
-        })
 
-        // const updatedMessage = await prisma.message.update({
-        //     where: {
-        //         id: lastMessage.id,
-        //     },
-        //     include: {
-        //         sender: true,
-        //         seen: true,
-        //     },
-        //     data: {
-        //         seen: {
-        //             connect: {
-        //                 id: currentUser.id,
-        //             },
-        //         },
-        //     },
-        // })
+            await pusherServer.trigger(currentUser.email!, "conversation:update", {
+                id: conversationId,
+                messages: [updatedMessage],
+            })
+
+            await pusherServer.trigger(conversationId!, "message:update", updatedMessage)
+        })
 
         return NextResponse.json(true)
     } catch (error) {

@@ -39,10 +39,21 @@ const Body: React.FC<BodyProps> = ({ initialMessages }) => {
         })
     }, [])
 
+    const updateSeenStatusHandler = useCallback((newMessage: FullMessage) => {
+        setMessages((current) =>
+            current.map((message) => {
+                if (message.id === newMessage.id) return newMessage
+
+                return message
+            })
+        )
+    }, [])
+
     useEffect(() => {
         // conversationId is used as the channel name for each conversation
         pusherClient.subscribe(conversationId)
         pusherClient.bind("messages:new", newMessageHandler)
+        pusherClient.bind("message:update", updateSeenStatusHandler)
 
         bottomRef?.current?.scrollIntoView() // scroll to the bottom of component
         seenStatusHandler()
@@ -50,8 +61,9 @@ const Body: React.FC<BodyProps> = ({ initialMessages }) => {
         return () => {
             pusherClient.unsubscribe(conversationId)
             pusherClient.unbind("messages:new", newMessageHandler)
+            pusherClient.bind("message:update", updateSeenStatusHandler)
         }
-    }, [conversationId, newMessageHandler, seenStatusHandler])
+    }, [conversationId, newMessageHandler, seenStatusHandler, updateSeenStatusHandler])
 
     useEffect(() => {
         // Scroll to the bottom whenever the new message is added
