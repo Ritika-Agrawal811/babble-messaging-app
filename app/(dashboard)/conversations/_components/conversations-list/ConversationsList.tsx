@@ -1,9 +1,12 @@
 "use client"
 
 import clsx from "clsx"
-import { useState } from "react"
+import { find } from "lodash"
+import { useCallback, useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
+import { useSession } from "next-auth/react"
 import useConversation from "@/app/_hooks/useConversation"
+import { pusherClient } from "@/app/_libs/pusher"
 
 import type { FullConversation } from "@/app/_types"
 import type { User } from "@prisma/client"
@@ -24,6 +27,30 @@ const ConversationsList: React.FC<ConversationsListProps> = ({ list, users }) =>
 
     const { conversationId, isOpen } = useConversation()
     const router = useRouter()
+    const { data: session } = useSession()
+
+    const userEmail = session?.user?.email
+
+    const newConversationHandler = useCallback((conversation: FullConversation) => {
+        setItems((current) => {
+            // find if the new message already doesn't exist
+            if (find(current, { id: conversation.id })) return current
+
+            return [conversation, ...current]
+        })
+    }, [])
+
+    useEffect(() => {
+        if (!userEmail) return
+
+        pusherClient.subscribe(userEmail)
+        pusherClient.bind("conversation:new", newConversationHandler)
+
+        return () => {
+            pusherClient.unsubscribe(userEmail)
+            pusherClient.unbind("conversation:new", newConversationHandler)
+        }
+    }, [userEmail, newConversationHandler])
 
     return (
         <section
@@ -51,7 +78,7 @@ const ConversationsList: React.FC<ConversationsListProps> = ({ list, users }) =>
                 />
             </nav>
             <div className={clsx("flex flex-col", "grow overflow-y-auto")}>
-                {list.map((conversation) => (
+                {items.map((conversation) => (
                     <ConversationBox
                         key={conversation.id}
                         conversation={conversation}
